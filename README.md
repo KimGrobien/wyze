@@ -1,2 +1,2 @@
-#wyze
+# wyze
 Web application for budgeting
