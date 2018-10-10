@@ -10,7 +10,19 @@
 		<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.4/dist/js/tabulator.min.js"></script>
 		<script type="text/javascript" src="../js_files/moment.js"></script>
 	</head>
-	<body onload="addTable()">
+	<body onload="addTable()" class="subpage">
+		<header id="header">
+	      <div class="inner">
+	        <a href="homepage.html" class="logo"><strong>Wyze</strong></a>
+	        <nav id="nav">
+	          <a href="homepage.html">Home</a>
+	          <a href="transactions.html">Transactions</a>
+	          <a href="budget.html">Budget</a>
+	          <a href="account.html">My Account</a>
+	        </nav>
+	        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+	      </div>
+		</header>
 		<div id="addOptions">
 			<div id="importDiv">
 				<h3>Import Transactions</h3>
