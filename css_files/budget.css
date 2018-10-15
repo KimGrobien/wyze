@@ -1,0 +1,17 @@
+
+table.alt2 tbody tr:nth-child(2n + 1) {
+				background-color: #fff;
+}
+
+table.alt2 {
+	border-collapse: separate;
+}
+
+div.progress{
+    width: 300px;
+}
+
+table.alt2 a{
+    position: relative;
+    float: right;
+}
