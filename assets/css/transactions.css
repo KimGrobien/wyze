@@ -1,0 +1,43 @@
+body {
+	margin-top:50px;
+}
+
+.clickable:hover {
+	cursor:pointer;
+	background-color:rgba(30, 50, 250, .3);
+}
+
+#addOptions {
+	overflow:hidden;
+ 	
+}
+
+#importDiv {
+	float:left; 
+	width:50%; 
+	height:auto; 
+	text-align:center;
+}
+
+#importDiv p {
+	margin-bottom: 1em;
+}
+
+#importDiv h3 {
+	margin:0;
+}
+
+#addDiv {
+	float:right; 
+	width:50%; 
+	height:auto; 
+	text-align:center;
+}
+
+#addDiv form input {
+	width:23%; 
+	display:inline;
+}
+#addDiv form a {
+	margin-top:3.5em;
+}
