@@ -41,3 +41,7 @@ body {
 #addDiv form a {
 	margin-top:3.5em;
 }
+
+#tableDiv {
+	margin:0px 5px;
+}
