@@ -1,7 +1,7 @@
 var table;
 var transactionIndex = 2;
-var categories = {"Food":"Food", "Entertainment": "Entertainment", "Gas":"Gas", 
-    "Utilities":"Utilities", "Rent":"Rent", "Other":"Other"};
+var categories = {"Food and Dining":"Food and Dining", "Gas and Fuel": "Gas and Fuel", 
+    "Shopping":"Shopping", "Electric":"Electric"};
 var dblClick = false;
 
 function translateColumnName(columnName) {
@@ -126,7 +126,7 @@ function addTransaction(){
     var descVal = document.getElementById('inName').value;
     var categoryVal = document.getElementById('inCategory').value;
     var amountVal = document.getElementById('inAmount').value;
-    if ((dateVal == "") || (descVal == "") || (categoryVal == "") || (amountVal == "")){
+    if ((dateVal == "") || (descVal == "") || (amountVal == "")){
         alert("Please enter values for each field.");
     }else{
         transactionIndex++;
@@ -136,8 +136,8 @@ function addTransaction(){
 
 function addTable(){
     var tabledata = [
-        {id:1, date:moment("9/20/2018").format("MM/DD/YYYY"), description:"Chick-fil-A", category:"Food", amount:"7.93"},
-        {id:2, date:moment("10/03/2018").format("MM/DD/YYYY"), description:"Marathon", category:"Gas", amount:"31.50"},
+        {id:1, date:moment("9/20/2018").format("MM/DD/YYYY"), description:"Chick-fil-A", category:"Food and Dining", amount:"7.93"},
+        {id:2, date:moment("10/03/2018").format("MM/DD/YYYY"), description:"Marathon", category:"Gas and Fuel", amount:"31.50"},
     ];
 
     table = new Tabulator("#tableDiv", {
