@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Wyze</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/landing.css"/>
+    <style>
+      .button{
+        margin: 0px auto;
+      }
+    </style>
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header">
+				<div class="inner">
+					<a href="landing.html" class="logo"><strong>Wyze</strong></a>
+					<nav id="nav">
+						Learn | Budget | Succeed
+					</nav>
+					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+				</div>
+			</header>
+
+		<!-- Banner -->
+			<section id="banner">
+				<div class="inner">
+					<header>
+						<h1>Login</h1>
+					</header>
+
+					<div class="flex">
+            <form>
+              Username:
+              <input type="text" id="username" name="" value=""/><br>
+              Password:
+              <input type="password" id="password" name="" value=""/> <br>
+              <a href="index.html" class="button">Start Budgeting</a><br>
+              <a href="#three">Not a member? Learn More</a>
+
+            </form>
+					</div>
+				</div>
+			</section>
+      <!-- Three -->
+			<section id="three" class="wrapper align-center">
+				<div class="inner">
+					<div class="flex flex-2">
+            <article>
+						<h1><strong>About Wyze</strong></h1>
+            <p>
+              Wyze is a budgeting app aimed towards people who want to learn more about
+              personal finance. Wyze lets you take control of your spending by teaching you
+              the basics of personal finance, suggesting a spending budget, and helping you save
+              for the future goals you hope to achieve!
+            </p>
+            <button class="button" onclick="openForm()">Sign Up!</button>
+          </article>
+          <article>
+            <h1><strong>Personal Finance Tutorials</strong></h1>
+            <a href="https://www.youtube.com/watch?v=r7xsyacbObQ">Stock Market 101</a><br>
+            <a href="https://www.youtube.com/watch?v=E57KmpbNzLI">Investing in YOURSELF</a><br><br>
+            <h1><strong>Recent Financial Articles</strong></h1>
+            <a href="https://finance.yahoo.com/news/dow-drops-200-points-treasury-yields-move-higher-141746422.html">Stock Market News</a><br>
+						<a href="https://www.bloomberg.com/news/articles/2018-06-21/america-s-millennials-are-waking-up-to-a-grim-financial-future">Our Future</a><br>
+					  <a href="https://www.washingtonpost.com/business/millennials-get-plenty-of-financial-advice--most-of-it-is-wrong/2018/05/18/575247ec-5a10-11e8-8836-a4a123c359ab_story.html?noredirect=on">
+            Improvement as a MILLENNIAL</a>
+
+					</div>
+				</div>
+			</section>
+
+        <div class="form-popup" id="myForm">
+          <form action="post" class="form-container">
+            <h1>Sign Up</h1>
+
+            <label for="usr"><b>Username:</b></label>
+            <input type="text" placeholder="Enter Username" name="usr" required>
+
+            <label for="email"><b>Email:</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required>
+
+            <label for="psw"><b>Password:</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <a href="index.html" class="button" >Sign Up</a><br>
+            <button type="button" class="button" onclick="closeForm()">Close</button>
+          </form>
+        </div>
+
+        <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+        </script>
+</html>
