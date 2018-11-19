@@ -1,7 +1,15 @@
 <?php
 	require_once('db_con.php');
+	require_once('transactions_operations.php');
     
     $connection = connect_to_db();
+    
+    if (isset($_POST['add'])){
+    	add_transaction($connection);
+    }
+    
+    $transactions = get_transactions($connection);   
+    
     $sql = sprintf("SELECT * FROM categories where userID = 1");
      $result = $connection->query($sql) or die(mysqli_error($connection));           
     
@@ -10,10 +18,15 @@
         {
            $categories[$row["categoryName"]] = $row["categoryName"];
         }
+        
 ?>
 <script type="text/javascript">
 	//Passing db read categories from php to be used in js
 	var dbcategories = '<?php echo json_encode($categories); ?>';
+	var transactions = '<?php echo json_encode($transactions); ?>';
+	transactions = JSON.parse(transactions);
+	//alert(JSON.parse(transactions));
+	
 </script>
 
 <html>
@@ -49,12 +62,12 @@
 				<input type="file" id="inFile" hidden="true" onchange="readFile(this)">
 			</div>
 			<div id="addDiv">
-				<form>
-					<input type="text" placeholder="Date" id="inDate"/>
-					<input type="text" placeholder="Name" id="inName"/>
-					<input type="text" placeholder="Category" id="inCategory"/>
-					<input type="text" placeholder="Amount" id="inAmount"/>
-					<a href="javascript:addTransaction()" class="button special">Add Transaction</a>
+				<form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
+					<input type="text" name="date" placeholder="Date" id="inDate"/>
+					<input type="text" name="name" placeholder="Name" id="inName"/>
+					<input type="text" name="source" placeholder="Source" id="inSource"/>
+					<input type="text" name="amount" placeholder="Amount" id="inAmount"/>
+					<input name="add" type="submit" id="addButton" class="button special" onclick="javascript:addTransaction()" value="Add">
 				</form>
 			</div>
 		</div>

@@ -38,8 +38,9 @@ body {
 	width:23%; 
 	display:inline;
 }
-#addDiv form a {
-	margin-top:3.5em;
+
+#addButton {
+	margin-top:3.5em !important;
 }
 
 #tableDiv {

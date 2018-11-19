@@ -1,8 +1,28 @@
-
 var table;
 var transactionIndex = 2;
 var dblClick = false;
 var categories = JSON.parse(dbcategories);
+var tabledata;
+
+function convertDBToRows(){
+    let data = new Array();
+    for(var i = 0; i < transactions.length; i++){
+        data.push({
+            id: transactions[i][0],
+            date: transactions[i][1],
+            description: transactions[i][2],
+            category: transactions[i][3],
+            source: transactions[i][4],
+            amount: transactions[i][5]
+        })
+    }
+   /* let data = [
+        {id:1, date:moment("9/20/2018").format("MM/DD/YYYY"), description:"Chick-fil-A", source: "cash", category:"Food and Dining", amount:"7.93"},
+        {id:2, date:moment("10/03/2018").format("MM/DD/YYYY"), description:"Marathon", source: "creidt", category:"Gas and Fuel", amount:"31.50"},
+    ];*/
+ 
+    return data;
+}
 
 function translateColumnName(columnName) {
     var translatedName;
@@ -25,7 +45,7 @@ function readFile(o){
     fr = new FileReader();
     fr.onload = function(e){
         dataString = fr.result;
-        parseFile(dataString)
+        parseFile(dataString);
     }
     fr.readAsBinaryString(o.files[0]);
 }
@@ -116,7 +136,7 @@ function addImportedDataToTable(data){
         //Add row
         if (amount != "") {
             transactionIndex++;
-            table.addRow({id:transactionIndex, date: moment(date).format("MM/DD/YYYY"), description:description, category:"", amount:Number(amount).toFixed(2)}, true);
+            table.addRow({id:transactionIndex, date: moment(date).format("MM/DD/YYYY"), description:description, source:"", amount:Number(amount).toFixed(2)}, true);
         }
     }
 }
@@ -124,21 +144,22 @@ function addImportedDataToTable(data){
 function addTransaction(){
     var dateVal = document.getElementById('inDate').value;
     var descVal = document.getElementById('inName').value;
-    var categoryVal = document.getElementById('inCategory').value;
+    var sourceVal = document.getElementById('inSource').value;
     var amountVal = document.getElementById('inAmount').value;
     if ((dateVal == "") || (descVal == "") || (amountVal == "")){
         alert("Please enter values for each field.");
     }else{
         transactionIndex++;
-        table.addRow({id:transactionIndex, date: moment(dateVal).format("MM/DD/YYYY"), description:descVal, category:categoryVal, amount:amountVal}, true);
+        table.addRow({id:transactionIndex, date: moment(dateVal).format("MM/DD/YYYY"), description:descVal, source:sourceVal, amount:amountVal}, true);
     }
 }
 
 function addTable(){
-    var tabledata = [
-        {id:1, date:moment("9/20/2018").format("MM/DD/YYYY"), description:"Chick-fil-A", category:"Food and Dining", amount:"7.93"},
-        {id:2, date:moment("10/03/2018").format("MM/DD/YYYY"), description:"Marathon", category:"Gas and Fuel", amount:"31.50"},
-    ];
+    tabledata = convertDBToRows();
+    /*var tabledata = [
+        {id:1, date:moment("9/20/2018").format("MM/DD/YYYY"), description:"Chick-fil-A", source: "cash", category:"Food and Dining", amount:"7.93"},
+        {id:2, date:moment("10/03/2018").format("MM/DD/YYYY"), description:"Marathon", source: "creidt", category:"Gas and Fuel", amount:"31.50"},
+    ];*/
 
     table = new Tabulator("#tableDiv", {
         data:tabledata, //load initial data into table
@@ -148,6 +169,7 @@ function addTable(){
             {title:"Date", field:"date", sorter:"date", format: "MM/DD/YYYY", align:"left", editor: true, editable: editCheck},
             {title:"Description", field:"description", sorter:"string", align:"left", editor: true, editable: editCheck},
             {title:"Category", field:"category", sorter:"string", align:"left", editor: "select", editorParams:categories},
+            {title:"Source", field:"source", sorter:"string", align:"left", editor: "select", editorParams:categories},
             {title:"Amount", field:"amount", sorter:"number", align:"left", editor: true, editable: editCheck},
             {formatter:"tickCross", width:40, align:"center", cellClick:function(e, cell){
                 if (confirm("Are you sure you want to delete this transaction?")) {
