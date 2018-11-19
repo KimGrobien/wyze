@@ -17,7 +17,7 @@
 		<!-- Header -->
 			<header id="header">
 				<div class="inner">
-					<a href="index.html" class="logo"><strong>Wyze</strong></a>
+					<a href="index.php" class="logo"><strong>Wyze</strong></a>
 					<nav id="nav">
 						Learn | Budget | Succeed
 					</nav>
@@ -38,7 +38,7 @@
               <input type="text" id="username" name="" value=""/><br>
               Password:
               <input type="password" id="password" name="" value=""/> <br>
-              <a href="home.html" class="button">Start Budgeting</a><br>
+              <a href="home.php" class="button">Start Budgeting</a><br>
               <a href="#three">Not a member? Learn More</a>
 
             </form>
@@ -64,9 +64,9 @@
             <a href="https://www.youtube.com/watch?v=r7xsyacbObQ">Stock Market 101</a><br>
             <a href="https://www.youtube.com/watch?v=E57KmpbNzLI">Investing in YOURSELF</a><br><br>
             <h1><strong>Recent Financial Articles</strong></h1>
-            <a href="https://finance.yahoo.com/news/dow-drops-200-points-treasury-yields-move-higher-141746422.html">Stock Market News</a><br>
+            <a href="https://finance.yahoo.com/news/dow-drops-200-points-treasury-yields-move-higher-141746422.php">Stock Market News</a><br>
 						<a href="https://www.bloomberg.com/news/articles/2018-06-21/america-s-millennials-are-waking-up-to-a-grim-financial-future">Our Future</a><br>
-					  <a href="https://www.washingtonpost.com/business/millennials-get-plenty-of-financial-advice--most-of-it-is-wrong/2018/05/18/575247ec-5a10-11e8-8836-a4a123c359ab_story.html?noredirect=on">
+					  <a href="https://www.washingtonpost.com/business/millennials-get-plenty-of-financial-advice--most-of-it-is-wrong/2018/05/18/575247ec-5a10-11e8-8836-a4a123c359ab_story.php?noredirect=on">
             Improvement as a MILLENNIAL</a>
 
 					</div>
@@ -86,7 +86,7 @@
             <label for="psw"><b>Password:</b></label>
             <input type="password" placeholder="Enter Password" name="psw" required>
 
-            <a href="home.html" class="button" >Sign Up</a><br>
+            <a href="home.php" class="button" >Sign Up</a><br>
             <button type="button" class="button" onclick="closeForm()">Close</button>
           </form>
         </div>

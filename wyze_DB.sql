@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2018 at 04:25 AM
+-- Generation Time: Nov 19, 2018 at 12:18 AM
 -- Server version: 5.5.57-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.22
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `wyze_DB`
+-- Database: `wyze`
 --
 
 -- --------------------------------------------------------
@@ -43,7 +43,17 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `categoryName` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`categoryID`),
   KEY `userID` (`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`userID`, `categoryID`, `categoryName`) VALUES
+(1, 1, 'Food and Dining'),
+(1, 2, 'Gas and Fuel'),
+(1, 3, 'Shopping'),
+(1, 4, 'Electric');
 
 -- --------------------------------------------------------
 
@@ -91,7 +101,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(50) NOT NULL,
   `numPhone` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `fname`, `lName`, `email`, `numPhone`) VALUES
+(1, 'admin', '*4ACFE3202A5FF5CF467898FC58AAB1D615029441', '', '', '', NULL);
 
 --
 -- Constraints for dumped tables

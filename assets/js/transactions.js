@@ -1,8 +1,8 @@
+
 var table;
 var transactionIndex = 2;
-var categories = {"Food and Dining":"Food and Dining", "Gas and Fuel": "Gas and Fuel", 
-    "Shopping":"Shopping", "Electric":"Electric"};
 var dblClick = false;
+var categories = JSON.parse(dbcategories);
 
 function translateColumnName(columnName) {
     var translatedName;

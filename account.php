@@ -9,12 +9,12 @@
    <body class="subpage">
       <header id="header">
          <div class="inner">
-            <a href="home.html" class="logo"><strong>Wyze</strong></a>
+            <a href="home.php" class="logo"><strong>Wyze</strong></a>
             <nav id="nav">
-               <a href="home.html">Home</a>
-               <a href="transactions.html">Transactions</a>
-               <a href="budget.html">Budget</a>
-               <a href="account.html">My Account</a>
+               <a href="home.php">Home</a>
+               <a href="transactions.php">Transactions</a>
+               <a href="budget.php">Budget</a>
+               <a href="account.php">My Account</a>
             </nav>
             <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
          </div>
