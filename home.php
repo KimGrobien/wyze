@@ -27,7 +27,7 @@
 					<header class="align-center">
 						<h2>Account Overview</h2>
 					</header>
-									<h4>Account Balances</h4>
+									<h4>Account Plans</h4>
 									<div class="table-wrapper">
 										<table>
 											<thead>
@@ -76,11 +76,11 @@
 									100
 									],
 								backgroundColor: [
-									'rgba(255,0,255,.6)',
-									'rgba(0,255,255,.6)',
-									'rgba(255,255,0,.6)',
-									'rgba(0,0,255,.6)',
-									'rgba(255,0,0,.6)',
+									'rgba(108,192,145,.6)',
+									'rgba(122,198,156,.6)',
+									'rgba(218,239,227,.6)',
+									'rgba(196,215,204,.6)',
+									'rgba(86,154,116,.6)',
 								],
 								borderWidth:3,
 								borderColor:'lightgrey'
