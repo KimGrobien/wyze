@@ -1,0 +1,13 @@
+h2.popup{
+    color: white;
+}
+
+
+
+#inputs > .in {
+    margin: 0 0 1em 0;
+}
+
+#inputs > .in > label{
+    color: white;
+}
