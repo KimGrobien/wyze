@@ -39,12 +39,117 @@
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<header class="align-center">
-						<h2>Plan</h2>
+						<h2>Default Plan</h2>
 						<!--<p>Aliquam erat volutpat nam dui </p> -->
 					        <ul class="actions">
-								<li><a href="#" class="button special">Add Category</a></li>
-								<li><a href="#" class="button special">Add Subcategory</a></li>
-								<li><a href="#" class="button special">Edit Categories</a></li>
+					        	<li><button class="category_open">Add Category</button>
+						    		<div id="category">
+						    			<head>
+											<link rel="stylesheet" href="assets/css/main.css" />
+											<link rel="stylesheet" href="assets/css/newPlan.css" />
+									    </head>
+								        <header id="header">
+										    <div class="inner">
+								                <a href="home.php" class="logo"><strong>WYZE</strong></a>
+								            </div>
+										</header>
+										<section class="wrapper">
+											<header class="align-center">
+												<h2 class="popup">Add New Category</h2>
+											</header>
+											<form method="post" action="">
+												<div id="inputs">
+													<div class="in">
+														<input type="text" name="demo-name" id="demo-name" value="" placeholder="Category Name" />
+													</div>
+												</div>
+											</form>
+											<footer class="align-center">
+												<input type="submit" class="category_close" value="Add Category">
+												<button class="category_close">Close</button>
+											</footer>
+										</section>
+								  	</div>
+						    	</li>
+					        	<li><button class="subcategory_open">Add Subcategory</button>
+						    		<div id="subcategory">
+						    			<head>
+											<link rel="stylesheet" href="assets/css/main.css" />
+											<link rel="stylesheet" href="assets/css/newPlan.css" />
+									    </head>
+								        <header id="header">
+										    <div class="inner">
+								                <a href="home.php" class="logo"><strong>WYZE</strong></a>
+								            </div>
+										</header>
+										<section class="wrapper">
+											<header class="align-center">
+												<h2 class="popup">Add New Subcategory</h2>
+											</header>
+											<form method="post" action="">
+												<div id="inputs">
+													<div class="in">
+														<div class="select-wrapper">
+															<select name="demo-category" id="demo-category">
+																<option value="">- Category -</option>
+																<option value="1">Food and Dining</option>
+																<option value="1">Gas and Fuel</option>
+																<option value="1">Shopping</option>
+																<option value="1">Electric</option>
+															</select>
+														</div>
+													</div>
+													<div class="in">
+														<input type="text" name="demo-name" id="demo-name" value="" placeholder="Subcategory Name" />
+													</div>
+												</div>
+											</form>
+											<footer class="align-center">
+												<input type="submit" class="subcategory_close" value="Add Subcategory">
+												<button class="subcategory_close">Close</button>
+											</footer>
+										</section>
+								  	</div>
+						    	</li>
+								<li><button class="edit_open">Edit Categories</button>
+						    		<div id="edit">
+						    			<head>
+											<link rel="stylesheet" href="assets/css/main.css" />
+											<link rel="stylesheet" href="assets/css/newPlan.css" />
+									    </head>
+								        <header id="header">
+										    <div class="inner">
+								                <a href="home.php" class="logo"><strong>WYZE</strong></a>
+								            </div>
+										</header>
+										<section class="wrapper">
+											<header class="align-center">
+												<h2 class="popup">Edit Categories</h2>
+											</header>
+											<form method="post" action="">
+												<div id="inputs">
+													<div class="in">
+														<div class="select-wrapper">
+															<select name="demo-category" id="demo-category">
+																<option value="">- Category -</option>
+																<option value="1">Food and Dining</option>
+																<option value="1">Gas and Fuel</option>
+																<option value="1">Shopping</option>
+																<option value="1">Electric</option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</form>
+											<footer class="align-center">
+												<input type="submit" class="edit_close" value="Delete Category">
+												<input type="submit" class="edit_close" value="Change Category Name">
+												<input type="submit" class="edit_close" value="Edit Subcategory">
+												<button class="edit_close">Close</button>
+											</footer>
+										</section>
+								  	</div>
+						    	</li>
 							</ul>
 					</header>
 					<div class="table-wrapper">
@@ -109,51 +214,82 @@
 					</div>
 					<footer class="align-center">
 					    <ul class="actions">
-					    	<li><button class="my_popup_open">Add New Plan</button>
-					    		<div id="my_popup">
+					    	<li><button class="plan_open">Add New Plan</button>
+					    		<div id="plan">
 					    			<head>
 										<link rel="stylesheet" href="assets/css/main.css" />
 										<link rel="stylesheet" href="assets/css/newPlan.css" />
 								    </head>
-								    <!--<body class="subpage">-->
-								        <header id="header">
-										    <div class="inner">
-								                <a href="home.php" class="logo"><strong>WYZE</strong></a>
-								            </div>
+							        <header id="header">
+									    <div class="inner">
+							                <a href="home.php" class="logo"><strong>WYZE</strong></a>
+							            </div>
+									</header>
+									<section class="wrapper">
+										<header class="align-center">
+											<h2 class="popup">Add New Plan</h2>
 										</header>
-										<section class="wrapper">
-											<header class="align-center">
-												<h2 class="popup">Add New Plan</h2>
-											</header>
-												<form method="post" action="">
-													<div id="inputs">
-														<div class="in">
-															<input type="text" name="demo-name" id="demo-name" value="" placeholder="Plan Name" />
-														</div>
-														<div class="in">
-															<input type="text" name="demo-name" id="demo-name" value="" placeholder="Plan Limit(in $)" />
-														</div>
-														<div class="in">
-															<input type="checkbox" id="demo-copy" name="demo-copy">
-															<label for="demo-copy">Make this my default plan</label>
-														</div>
-													</div>
-												</form>
-												<footer class="align-center">
-													<input type="submit" class="my_popup_close" value="Add Plan">
-													<button class="my_popup_close">Close</button>
-												</footer>
-										</section>
-										
-								   <!-- </body>-->
-								
-								    <!-- Add an optional button to close the popup -->
-								    
+										<form method="post" action="">
+											<div id="inputs">
+												<div class="in">
+													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Plan Name" />
+												</div>
+												<div class="in">
+													<input type="checkbox" id="demo-copy" name="demo-copy">
+													<label for="demo-copy">Make this my default plan</label>
+												</div>
+											</div>
+										</form>
+										<footer class="align-center">
+											<input type="submit" class="plan_close" value="Add Plan">
+											<button class="plan_close">Close</button>
+										</footer>
+									</section>
 							  	</div>
 					    	</li>
 					    	
-					        <li><a href="#" class="button special">Add Budget</a></li>
-					        <li><a href="transactions.php" class="button special">Add Transactions</a></li>
+					    	<li><button class="budget_open">Add Budget</button>
+					    		<div id="budget">
+					    			<head>
+										<link rel="stylesheet" href="assets/css/main.css" />
+										<link rel="stylesheet" href="assets/css/newPlan.css" />
+								    </head>
+							        <header id="header">
+									    <div class="inner">
+							                <a href="home.php" class="logo"><strong>WYZE</strong></a>
+							            </div>
+									</header>
+									<section class="wrapper">
+										<header class="align-center">
+											<h2 class="popup">Add New Budget</h2>
+										</header>
+										<form method="post" action="">
+											<div id="inputs">
+												<div class="in">
+													<div class="select-wrapper">
+														<select name="demo-category" id="demo-category">
+															<option value="">- Category -</option>
+															<option value="1">Food and Dining</option>
+															<option value="1">Gas and Fuel</option>
+															<option value="1">Shopping</option>
+															<option value="1">Electric</option>
+														</select>
+													</div>
+												</div>
+												<div class="in">
+													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Budget Limit(in $)" />
+												</div>
+											</div>
+										</form>
+										<footer class="align-center">
+											<input type="submit" class="budget_close" value="Add Budget">
+											<button class="budget_close">Close</button>
+										</footer>
+									</section>
+							  	</div>
+					    	</li>
+					        <!--<li><a href="#" class="button special">Add Budget</a></li>-->
+					        <li><a href="transactions.php" class="button">Add Transactions</a></li>
 					    </ul>
 					</footer>
 				</div>
@@ -170,7 +306,31 @@
 			<script>
     			$(document).ready(function() {
 			      // Initialize the plugin
-			      $('#my_popup').popup({
+			      $('#plan').popup({
+			      });
+			    });
+			    
+			    $(document).ready(function() {
+			      // Initialize the plugin
+			      $('#budget').popup({
+			      });
+			    });
+			    
+			    $(document).ready(function() {
+			      // Initialize the plugin
+			      $('#category').popup({
+			      });
+			    });
+			    
+			    $(document).ready(function() {
+			      // Initialize the plugin
+			      $('#subcategory').popup({
+			      });
+			    });
+			    
+			    $(document).ready(function() {
+			      // Initialize the plugin
+			      $('#edit').popup({
 			      });
 			    });
   			</script>
