@@ -15,8 +15,6 @@
         $result = $connection->query($sql) or die(mysqli_error($connection));
         if ($result === false)
             die("Could not query database");
-            
-        console.log("COMPLETED");
     }
     //For deleting, ajax call posts to deleteID
     if (isset($_POST['deleteID'])) {
@@ -39,6 +37,7 @@
     }
     function add_transaction($connection)
     {
+                if(($_POST['date'] != "") && ($_POST['name'] != "") && ($_POST['amount'] != "")){
                    $sql = sprintf("INSERT INTO `transactions`(`userID`, `date`, `description`, `source`, `amount`) VALUES (1, '%s','%s','%s','%s')",
                                $connection->real_escape_string($_POST["date"]),
                                $connection->real_escape_string($_POST["name"]),
@@ -50,6 +49,7 @@
         
                     if ($result === false)
                         die("Could not query database");
+                }
     }
     
     function get_transactions($connection)
