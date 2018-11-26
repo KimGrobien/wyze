@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2018 at 01:11 PM
+-- Generation Time: Nov 26, 2018 at 10:33 PM
 -- Server version: 5.5.57-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.22
 
@@ -73,6 +73,28 @@ CREATE TABLE IF NOT EXISTS `plan` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sources`
+--
+
+CREATE TABLE IF NOT EXISTS `sources` (
+  `userID` int(11) NOT NULL,
+  `sourceID` int(11) NOT NULL AUTO_INCREMENT,
+  `source` varchar(30) NOT NULL,
+  PRIMARY KEY (`sourceID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `sources`
+--
+
+INSERT INTO `sources` (`userID`, `sourceID`, `source`) VALUES
+(1, 1, 'credit'),
+(1, 2, 'debit'),
+(1, 3, 'cash');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `transactions`
 --
 
@@ -85,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `source` varchar(30) DEFAULT NULL,
   `amount` float DEFAULT NULL,
   PRIMARY KEY (`transactionID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=78 ;
 
 --
 -- Dumping data for table `transactions`
