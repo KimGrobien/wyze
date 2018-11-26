@@ -178,6 +178,9 @@ function addTable(){
                 }
             }},
         ],
+         cellEdited:function(cell){
+            phpUpdateInDB(cell.getRow().getCell("id").getValue(), cell.getColumn().getField(), cell.getValue());
+        },
         cellDblClick:function(e, cell){
             //Editable on triple click
                 dblClick = true;

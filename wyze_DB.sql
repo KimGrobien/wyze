@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2018 at 01:55 AM
+-- Generation Time: Nov 26, 2018 at 01:11 PM
 -- Server version: 5.5.57-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.22
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `plan` (
 CREATE TABLE IF NOT EXISTS `transactions` (
   `userID` int(11) NOT NULL,
   `transactionID` int(11) NOT NULL AUTO_INCREMENT,
-  `transaction_date` varchar(10) DEFAULT NULL,
+  `date` varchar(10) DEFAULT NULL,
   `description` varchar(100) DEFAULT NULL,
   `category` varchar(50) DEFAULT NULL,
   `source` varchar(30) DEFAULT NULL,
@@ -91,8 +91,8 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`userID`, `transactionID`, `transaction_date`, `description`, `category`, `source`, `amount`) VALUES
-(1, 9, '09/20/18', 'Chick-fil-A', NULL, 'cash', 7.93),
+INSERT INTO `transactions` (`userID`, `transactionID`, `date`, `description`, `category`, `source`, `amount`) VALUES
+(1, 9, '09/22/18', 'Chick-fil-A', 'Food and Dining', 'cash', 7.5),
 (1, 10, '09/12/18', 'Marathon', NULL, 'credit', 27.15),
 (1, 12, '10/03/18', 'Kroger', NULL, 'cash', 12.99);
 

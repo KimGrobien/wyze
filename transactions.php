@@ -38,7 +38,16 @@
 	        }
     	});  
 	}
-	
+	function phpUpdateInDB(updateID, updateColumn, updateValue) {
+		 $.ajax({
+	        url: 'transactions_operations.php',
+	        type: 'POST',
+	        data: {updateID:updateID, updateColumn: updateColumn, updateValue: updateValue},
+	        success: function(data) {
+	            console.log(data); // Inspect this in your console
+	        }
+    	});  
+	}
 </script>
 
 <html>
