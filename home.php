@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<?php
+require_once("db_con.php");
+$connection = connect_to_db();
+
+
+
+?>
 <html>
 	<head>
 		<title>Homepage</title>
@@ -32,8 +38,8 @@
 										<table>
 											<thead>
 												<tr>
-													<th>Nickname</th>
-													<th>Balance</th>
+													<th>Plan Name</th>
+													<th>Goal</th>
 												</tr>
 											</thead>
 											<tbody>
