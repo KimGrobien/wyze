@@ -20,12 +20,24 @@
         }
         
 ?>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script type="text/javascript">
+/* global $ */ 
 	//Passing db read categories from php to be used in js
 	var dbcategories = '<?php echo json_encode($categories); ?>';
 	var transactions = '<?php echo json_encode($transactions); ?>';
 	transactions = JSON.parse(transactions);
 	//alert(JSON.parse(transactions));
+	function phpDeleteFromDB(id) {
+        $.ajax({
+	        url: 'transactions_operations.php',
+	        type: 'POST',
+	        data: {deleteID:id},
+	        success: function(data) {
+	            console.log(data); // Inspect this in your console
+	        }
+    	});  
+	}
 	
 </script>
 
@@ -62,7 +74,7 @@
 				<input type="file" id="inFile" hidden="true" onchange="readFile(this)">
 			</div>
 			<div id="addDiv">
-				<form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
+				<form id="test" action="<?= $_SERVER["PHP_SELF"]; ?>" method="post">
 					<input type="text" name="date" placeholder="Date" id="inDate"/>
 					<input type="text" name="name" placeholder="Name" id="inName"/>
 					<input type="text" name="source" placeholder="Source" id="inSource"/>

@@ -1,4 +1,14 @@
 <?php
+    require_once('db_con.php');
+    //For deleting, ajax call posts to deleteID
+    if (isset($_POST['deleteID'])) {
+        $connection = connect_to_db();
+            $sql = sprintf("DELETE FROM transactions WHERE transactionID = %d", $_POST['deleteID']);
+            $result = $connection->query($sql) or die(mysqli_error($connection));
+            
+            if ($result === false)
+                die("Could not query database");
+    }
     function add_transaction($connection)
     {
                    $sql = sprintf("INSERT INTO `transactions`(`userID`, `transaction_date`, `description`, `source`, `amount`) VALUES (1, '%s','%s','%s','%s')",

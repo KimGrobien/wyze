@@ -173,6 +173,7 @@ function addTable(){
             {title:"Amount", field:"amount", sorter:"number", align:"left", editor: true, editable: editCheck},
             {formatter:"tickCross", width:40, align:"center", cellClick:function(e, cell){
                 if (confirm("Are you sure you want to delete this transaction?")) {
+                    phpDeleteFromDB(cell.getRow().getCell("id").getValue());
                     table.deleteRow(cell.getRow());
                 }
             }},
