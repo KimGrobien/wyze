@@ -7,17 +7,24 @@
     if (isset($_POST['add'])){
     	add_transaction($connection);
     }
-    
     $transactions = get_transactions($connection);   
     
+    //Get categories - TODO dynamic userID
     $sql = sprintf("SELECT * FROM categories where userID = 1");
-     $result = $connection->query($sql) or die(mysqli_error($connection));           
-    
-        //Add each category to associative categories array
-        while ($row = $result->fetch_assoc())
-        {
-           $categories[$row["categoryName"]] = $row["categoryName"];
-        }
+    $result = $connection->query($sql) or die(mysqli_error($connection));           
+    //Add each category to associative categories array
+    while ($row = $result->fetch_assoc())
+    {
+       $categories[$row["categoryName"]] = $row["categoryName"];
+    }
+    //Get sources - TODO dynamic userID
+    $sql = sprintf("SELECT * FROM sources where userID = 1");
+    $result = $connection->query($sql) or die(mysqli_error($connection));           
+    //Add each category to associative categories array
+    while ($row = $result->fetch_assoc())
+    {
+       $sources[$row["source"]] = $row["source"];
+    }
         
 ?>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -25,6 +32,7 @@
 /* global $ */ 
 	//Passing db read categories from php to be used in js
 	var dbcategories = '<?php echo json_encode($categories); ?>';
+	var dbsources = '<?php echo json_encode($sources); ?>';
 	var transactions = '<?php echo json_encode($transactions); ?>';
 	transactions = JSON.parse(transactions);
 	//alert(JSON.parse(transactions));

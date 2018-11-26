@@ -2,6 +2,7 @@ var table;
 var transactionIndex = 2;
 var dblClick = false;
 var categories = JSON.parse(dbcategories);
+var sources = JSON.parse(dbsources);
 var tabledata;
 
 function convertDBToRows(){
@@ -156,7 +157,7 @@ function addTable(){
             {title:"Date", field:"date", sorter:"date", format: "MM/DD/YYYY", align:"left", editor: true, editable: editCheck},
             {title:"Description", field:"description", sorter:"string", align:"left", editor: true, editable: editCheck},
             {title:"Category", field:"category", sorter:"string", align:"left", editor: "select", editorParams:categories},
-            {title:"Source", field:"source", sorter:"string", align:"left", editor: "select", editorParams:categories},
+            {title:"Source", field:"source", sorter:"string", align:"left", editor: "select", editorParams:sources},
             {title:"Amount", field:"amount", sorter:"number", align:"left", editor: true, editable: editCheck},
             {formatter:"tickCross", width:40, align:"center", cellClick:function(e, cell){
                 if (confirm("Are you sure you want to delete this transaction?")) {
