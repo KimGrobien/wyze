@@ -93,10 +93,10 @@ function parseSingleCSV(csvString) {
         var rows = csvString.split("\n");
         data[i] = rows[i].split(",");
     }
-    addImportedDataToTable(data);
+    addImportedData(data);
 }
 
-function addImportedDataToTable(data){
+function addImportedData(data){
     var dateColIdx, descColIdx, amountColIdx;
     for(var i = 0; i < data[0].length; i ++){
         switch (data[0][i]) {
@@ -118,21 +118,18 @@ function addImportedDataToTable(data){
                 break;
         }
     }
-
+    //Remove all credit transactions (ignore income)
+    for (var i = 1; i < data.length; i++){
+        if(data[i][amountColIdx[1]] != ""){
+            data.splice(i, 1);
+        }
+    }
+    addImportedDataToDB(data);
     var date, description, amount;
     for (var i = 1; i < data.length; i++){
         date = data[i][dateColIdx]
         description = data[i][descColIdx]
-        if (amountColIdx.constructor === Array){
-            if (data[i][amountColIdx[0]] != ""){
-                //Debit, thus negative amount
-                amount = "-" + data[i][amountColIdx[0]];
-            }else{
-                amount = data[i][amountColIdx[1]];
-            }
-        }else{
-            amount = data[i][amountColIdx];
-        }
+        amount = data[i][amountColIdx[0]];
         //Add row
         if (amount != "") {
             transactionIndex++;
@@ -173,13 +170,13 @@ function addTable(){
             {title:"Amount", field:"amount", sorter:"number", align:"left", editor: true, editable: editCheck},
             {formatter:"tickCross", width:40, align:"center", cellClick:function(e, cell){
                 if (confirm("Are you sure you want to delete this transaction?")) {
-                    phpDeleteFromDB(cell.getRow().getCell("id").getValue());
+                    deleteFromDB(cell.getRow().getCell("id").getValue());
                     table.deleteRow(cell.getRow());
                 }
             }},
         ],
          cellEdited:function(cell){
-            phpUpdateInDB(cell.getRow().getCell("id").getValue(), cell.getColumn().getField(), cell.getValue());
+            updateInDB(cell.getRow().getCell("id").getValue(), cell.getColumn().getField(), cell.getValue());
         },
         cellDblClick:function(e, cell){
             //Editable on triple click

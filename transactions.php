@@ -28,7 +28,7 @@
 	var transactions = '<?php echo json_encode($transactions); ?>';
 	transactions = JSON.parse(transactions);
 	//alert(JSON.parse(transactions));
-	function phpDeleteFromDB(id) {
+	function deleteFromDB(id) {
         $.ajax({
 	        url: 'transactions_operations.php',
 	        type: 'POST',
@@ -38,7 +38,7 @@
 	        }
     	});  
 	}
-	function phpUpdateInDB(updateID, updateColumn, updateValue) {
+	function updateInDB(updateID, updateColumn, updateValue) {
 		 $.ajax({
 	        url: 'transactions_operations.php',
 	        type: 'POST',
@@ -47,6 +47,16 @@
 	            console.log(data); // Inspect this in your console
 	        }
     	});  
+	}
+	function addImportedDataToDB(data){
+		$.ajax({
+	        url: 'transactions_operations.php',
+	        type: 'POST',
+	        data: {importedData: data},
+	        success: function(data) {
+	            console.log(data); // Inspect this in your console
+	        }
+    	}); 
 	}
 </script>
 

@@ -1,5 +1,23 @@
 <?php
     require_once('db_con.php');
+    if (isset($_POST['importedData'])){
+        $connection = connect_to_db();
+        $first = true;
+        foreach ($_POST['importedData'] as $value) {
+            if ($first){
+                $sql = "INSERT INTO `transactions`(`userID`, `date`, `description`, `source`, `amount`) VALUES ";
+                 $first = false;
+            } else {
+                $sql = $sql . sprintf("(1, '%s','%s','%s','%s'),",$value[0],"test source",$value[2],$value[3]);//$value[1] holds source which is unkown from data
+            }
+        }
+        $sql = substr($sql, 0, -1);//Remove trailing comma
+        $result = $connection->query($sql) or die(mysqli_error($connection));
+        if ($result === false)
+            die("Could not query database");
+            
+        console.log("COMPLETED");
+    }
     //For deleting, ajax call posts to deleteID
     if (isset($_POST['deleteID'])) {
         $connection = connect_to_db();
