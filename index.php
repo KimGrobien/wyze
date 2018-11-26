@@ -1,3 +1,11 @@
+<?php
+	session_start();
+
+
+
+?>
+
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -33,11 +41,11 @@
 					</header>
 
 					<div class="flex">
-            <form>
+            <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
               Username:
-              <input type="text" id="username" name="" value=""/><br>
+              <input type="text" id="username" name="loginusr" value=""/><br>
               Password:
-              <input type="password" id="password" name="" value=""/> <br>
+              <input type="password" id="password" name="loginpass" value=""/> <br>
               <a href="home.php" class="button">Start Budgeting</a><br>
               <a href="#three">Not a member? Learn More</a>
 
@@ -73,20 +81,27 @@
 				</div>
 			</section>
 
+				<?php
+
+				//	if(isset())
+
+				?>
+
+
         <div class="form-popup" id="myForm">
-          <form action="post" class="form-container">
+          <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
             <h1>Sign Up</h1>
 
             <label for="usr"><b>Username:</b></label>
-            <input type="text" placeholder="Enter Username" name="usr" required>
+            <input type="text" placeholder="Enter Username" name="signupusr" required>
 
             <label for="email"><b>Email:</b></label>
-            <input type="text" placeholder="Enter Email" name="email" required>
+            <input type="text" placeholder="Enter Email" name="signupemail" required>
 
             <label for="psw"><b>Password:</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input type="password" placeholder="Enter Password" name="signuppsw" required>
 
-            <a href="home.php" class="button" >Sign Up</a><br>
+            <input type="submit" name="signup" value="Sign Up!"><br>
             <button type="button" class="button" onclick="closeForm()">Close</button>
           </form>
         </div>
@@ -101,3 +116,8 @@
         }
         </script>
 </html>
+
+<?php
+
+
+ ?>
