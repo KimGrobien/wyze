@@ -48,15 +48,16 @@
 	        }
     	});  
 	}
-	function addImportedDataToDB(data){
+	function addImportedDataToDB(data, source){
+		 document.getElementById("overlay").style.display = "block";//Loading bar with dimmed background
 		$.ajax({
 	        url: 'transactions_operations.php',
 	        type: 'POST',
-	        data: {importedData: data},
+	        data: {importedData: data, source: source},
 	        success: function(data) {
-	            console.log(data); // Inspect this in your console
+	           window.location.reload();
 	        }
-    	}); 
+    	});
 	}
 </script>
 
@@ -72,6 +73,12 @@
 		<script type="text/javascript" src="assets/js/moment.js"></script>
 	</head>
 	<body onload="addTable()" class="subpage">
+		<div id="overlay">
+			<div>
+	        	<img id="progress" alt="Please Wait" src="loading.gif">
+	        	<br><br>
+	      	</div>
+		</div>
 		<header id="header">
 	      <div class="inner">
 	        <a href="home.php" class="logo"><strong>Wyze</strong></a>
@@ -93,7 +100,7 @@
 				<input type="file" id="inFile" hidden="true" onchange="readFile(this)">
 			</div>
 			<div id="addDiv">
-				<form id="test" action="<?= $_SERVER["PHP_SELF"]; ?>" method="post">
+				<form action="<?= $_SERVER["PHP_SELF"]; ?>" method="post">
 					<input type="text" name="date" placeholder="Date" id="inDate"/>
 					<input type="text" name="name" placeholder="Name" id="inName"/>
 					<input type="text" name="source" placeholder="Source" id="inSource"/>

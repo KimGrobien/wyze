@@ -8,7 +8,12 @@
                 $sql = "INSERT INTO `transactions`(`userID`, `date`, `description`, `source`, `amount`) VALUES ";
                  $first = false;
             } else {
-                $sql = $sql . sprintf("(1, '%s','%s','%s','%s'),",$value[0],"test source",$value[2],$value[3]);//$value[1] holds source which is unkown from data
+                $sql = $sql . sprintf("(1, '%s','%s','%s','%s'),",
+                $value[0],
+                $value[2],
+                $connection->real_escape_string($_POST["source"]),//$value[1] holds source which is unkown from data, must be gotten from prompt
+                $value[3]
+                );
             }
         }
         $sql = substr($sql, 0, -1);//Remove trailing comma
@@ -37,19 +42,18 @@
     }
     function add_transaction($connection)
     {
-                if(($_POST['date'] != "") && ($_POST['name'] != "") && ($_POST['amount'] != "")){
-                   $sql = sprintf("INSERT INTO `transactions`(`userID`, `date`, `description`, `source`, `amount`) VALUES (1, '%s','%s','%s','%s')",
-                               $connection->real_escape_string($_POST["date"]),
-                               $connection->real_escape_string($_POST["name"]),
-                               $connection->real_escape_string($_POST["source"]),
-                               $connection->real_escape_string($_POST["amount"]));
-                    
-                    // execute query
-                    $result = $connection->query($sql) or die(mysqli_error($connection));  
-        
-                    if ($result === false)
-                        die("Could not query database");
-                }
+        if(($_POST['date'] != "") && ($_POST['name'] != "") && ($_POST['amount'] != "")){
+           $sql = sprintf("INSERT INTO `transactions`(`userID`, `date`, `description`, `source`, `amount`) VALUES (1, '%s','%s','%s','%s')",
+                       $connection->real_escape_string($_POST["date"]),
+                       $connection->real_escape_string($_POST["name"]),
+                       $connection->real_escape_string($_POST["source"]),
+                       $connection->real_escape_string($_POST["amount"]));
+            
+            // execute query
+            $result = $connection->query($sql) or die(mysqli_error($connection));  
+            if ($result === false)
+                die("Could not query database");
+        }
     }
     
     function get_transactions($connection)

@@ -124,7 +124,8 @@ function addImportedData(data){
             data.splice(i, 1);
         }
     }
-    addImportedDataToDB(data);
+    var source = prompt("Please enter the source", "cash");
+    addImportedDataToDB(data, source);
     var date, description, amount;
     for (var i = 1; i < data.length; i++){
         date = data[i][dateColIdx]
@@ -133,30 +134,19 @@ function addImportedData(data){
         //Add row
         if (amount != "") {
             transactionIndex++;
-            table.addRow({id:transactionIndex, date: moment(date).format("MM/DD/YYYY"), description:description, source:"", amount:Number(amount).toFixed(2)}, true);
+            //table.addRow({id:transactionIndex, date: moment(date).format("MM/DD/YYYY"), description:description, source:source, amount:Number(amount).toFixed(2)}, true);
         }
     }
 }
 
 function addTransaction(){
-    var dateVal = document.getElementById('inDate').value;
-    var descVal = document.getElementById('inName').value;
-    var sourceVal = document.getElementById('inSource').value;
-    var amountVal = document.getElementById('inAmount').value;
     if ((dateVal == "") || (descVal == "") || (amountVal == "")){
         alert("Please enter values for each field.");
-    }else{
-        transactionIndex++;
-        table.addRow({id:transactionIndex, date: moment(dateVal).format("MM/DD/YYYY"), description:descVal, source:sourceVal, amount:amountVal}, true);
     }
 }
 
 function addTable(){
     tabledata = convertDBToRows();
-    /*var tabledata = [
-        {id:1, date:moment("9/20/2018").format("MM/DD/YYYY"), description:"Chick-fil-A", source: "cash", category:"Food and Dining", amount:"7.93"},
-        {id:2, date:moment("10/03/2018").format("MM/DD/YYYY"), description:"Marathon", source: "creidt", category:"Gas and Fuel", amount:"31.50"},
-    ];*/
 
     table = new Tabulator("#tableDiv", {
         data:tabledata, //load initial data into table
