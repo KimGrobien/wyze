@@ -65,7 +65,13 @@
                     $username = $_POST["loginusr"];
                     if ($result->num_rows == 1):
                       $_SESSION["authenticated"] = true;
-                      $_SESSION["username"] = $username;
+                      
+                      $sql = sprintf("Select id From users where username = '%s'",
+                      $connection->real_escape_string($_POST["loginusr"]));
+                      $result = $connection->query($sql) or die(mysqli_error());
+                      $_SESSION["username"] = $result->fetch_assoc();
+                      
+                      
                       setcookie("loginusr", $_COOKIE["loginusr"], time() + 7 * 24 * 60 * 60);
                     
                       $host = $_SERVER["HTTP_HOST"];
