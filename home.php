@@ -3,11 +3,13 @@ require_once("db_con.php");
 $connection = connect_to_db();
 
     
-    $sql = sprintf("SELECT * FROM categories where userID = 1");
+    $sql = sprintf("SELECT C.categoryName, (Select amount from transactions T where C.categoryName = T.category) FROM categories C where userID = 1 group by C.categoryName");
     $result = $connection->query($sql) or die(mysqli_error($connection));
     //get array of catagory names
-    //get array of total transactions for each catagory
-    //get deafault plan
+    while ($row = $result->fetch_assoc())
+    {
+       echo $categories[$row["categoryName"]] = $row["categoryName"];
+    }
 ?>
 <html>
 	<head>
@@ -19,7 +21,7 @@ $connection = connect_to_db();
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script>
   	
-  	var catagoryNames; //use the above array to create this js array
+  	var categoryNames = '<?php echo json_encode($categories); ?>'; //use the above array to create this js array
   	var totalTransactionsForCatagory; //use above array to populate this array
   </script>
 		
@@ -76,13 +78,11 @@ $connection = connect_to_db();
 					let pieChart = new Chart(myChart, {
 						type:'pie',
 						data:{
-							labels:[/*CatagoryNames*/],
+							labels:['<?php foreach($categories as $category){echo $category . ",";}	?>'],
 							datasets:[{
 								label:'Spent',
 								data:[
-									/*
-									CatagoryAmounts
-									*/
+								'<?php foreach($transactions as $amount){echo $amount . ",";}	?>'
 									],
 								backgroundColor: [
 									'rgba(108,192,145,.6)',

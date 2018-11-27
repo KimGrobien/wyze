@@ -3,7 +3,7 @@
     {
         define("USER", "test");
         define("PASS", "test");
-        define("DB", "wyze_DB");
+        define("DB", "test");
     
         // connect to database
         $connection = new mysqli('localhost', USER, PASS, DB);
