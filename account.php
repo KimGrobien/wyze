@@ -89,9 +89,11 @@
 											</tbody>
 										</table>
 									</div>
-									<input type="submit" name="editAcct' . $count . '" value="Edit" class="button special"></div>';
+									<input type="submit" name="editAcct' . $count . '" value="Edit" class="button special">
+									<input type="submit" name="deleteAcct' . $count . '" value="Delete" class="button special"></div>';
 						}
 					?>
+					
                <div class="4u$ 12u$(medium)">
                   <h3>Add a new account</h3>
                   <select name="newType">
