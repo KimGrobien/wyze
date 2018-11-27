@@ -31,7 +31,7 @@
 		if (isset($_POST['newType']) && isset($_POST['newAccName']) && isset($_POST['newBudget']) && isset($_POST['newLimit'])) {
 			$accountType = $_POST['newType']; $accountName = $_POST['newAccName']; $budget = $_POST['newBudget']; $limit = $_POST['newLimit'];
 			mysqli_query($connection, "insert into accountsettings(userID, accountName) values (2, '$accountName')");
-			mysqli_query($connection, "insert into plan(userID, budget, plan_limit) values (2, '$budget', '$limit')");
+			mysqli_query($connection, "insert into plan(userID, categoryID, budget, plan_limit) values (2, '$newType', '$budget', '$limit')");
 			if (isset($_POST['newDefault'])) {
 				mysqli_query($connection, "insert into plan(default_plan) values (1) where userID = 2");
 			}
@@ -61,82 +61,37 @@
             </header>
 			<form method="POST">
             <div class="row">
-               <div class="4u 12u$(medium)">
-                  <h3>Account 1</h3>
-                  <div class="table-wrapper">
-                     <table>
-                        <thead>
-                           <caption>Investment (bought a boat)</caption>
-                           <tr>
-                              <th>Attribute 1</th>
-                              <th>Attribute 2</th>
-                              <th>Attribute 3</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>one</td>
-                              <td>two</td>
-                              <td>three</td>
-                           </tr>
-                           <tr>
-                              <td>one</td>
-                              <td>two</td>
-                              <td>three</td>
-                           </tr>
-                           <tr>
-                              <td>one</td>
-                              <td>two</td>
-                              <td>three</td>
-                           </tr>
-                           <tr>
-                              <td>one</td>
-                              <td>two</td>
-                              <td>three</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-                  <a href="#" class="button special">Edit</a>
-               </div>
-               <div class="4u 12u$(medium)">
-                  <h3>Account 2</h3>
-                  <div class="table-wrapper">
-                     <table>
-                        <thead>
-                           <caption>Loan (bought a big ass car)</caption>
-                           <tr>
-                              <th>Attribute 1</th>
-                              <th>Attribute 2</th>
-                              <th>Attribute 3</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>one</td>
-                              <td>two</td>
-                              <td>three</td>
-                           </tr>
-                           <tr>
-                              <td>one</td>
-                              <td>two</td>
-                              <td>three</td>
-                           </tr>
-                           <tr>
-                              <td>one</td>
-                              <td>two</td>
-                              <td>three</td>
-                           </tr>
-                           <tr>
-                              <td>one</td>
-                              <td>two</td>
-                              <td>three</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-                  <a href="#" class="button special">Edit</a>
-               </div>
+               
+					<?php
+						$result1 = mysqli_query($connection, "select * from accountsettings where userID = 2");
+						$result2 = mysqli_query($connection, "select * from plan where userID = 2");
+						while ($row1 = mysqli_fetch_array($result1)) {
+							$count = 0;
+							$row2 = mysqli_fetch_array($result2);
+								$count = $count + 1;
+								$categoryName = mysqli_query($connection, "select categoryName from categories where categoryID = " . $row2['categoryID']);
+								$categoryString = mysqli_fetch_assoc($categoryName);
+								echo '<div class="4u 12u$(medium)"><h3>' . $row1['accountName'] . '</h3>';
+								echo '<div class="table-wrapper">
+										<table>
+											<thead>
+												<caption>' . $categoryString["categoryName"] . '</caption>
+												<tr>
+													<th>Budget</th>
+													<th>Limit</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>' . $row2['budget'] . '</td>
+													<td>' . $row2['plan_limit'] . '</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<input type="submit" name="editAcct' . $count . '" value="Edit" class="button special"></div>';
+						}
+					?>
                <div class="4u$ 12u$(medium)">
                   <h3>Add a new account</h3>
                   <select name="newType">

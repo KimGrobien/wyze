@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2018 at 08:06 AM
+-- Generation Time: Nov 27, 2018 at 09:56 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `accountsettings` (
   `userID` int(11) NOT NULL,
+  `planID` int(11) NOT NULL DEFAULT '0',
   `accountName` varchar(30) NOT NULL DEFAULT 'New Account'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -37,8 +38,9 @@ CREATE TABLE `accountsettings` (
 -- Dumping data for table `accountsettings`
 --
 
-INSERT INTO `accountsettings` (`userID`, `accountName`) VALUES
-(2, 'Test Account');
+INSERT INTO `accountsettings` (`userID`, `planID`, `accountName`) VALUES
+(2, 3, 'Second Test Account'),
+(2, 2, 'Test Account');
 
 -- --------------------------------------------------------
 
@@ -71,6 +73,7 @@ INSERT INTO `categories` (`userID`, `categoryID`, `categoryName`) VALUES
 CREATE TABLE `plan` (
   `userID` int(11) NOT NULL,
   `planID` int(11) NOT NULL,
+  `categoryID` int(11) NOT NULL DEFAULT '1',
   `budget` int(11) NOT NULL,
   `plan_limit` int(11) DEFAULT NULL,
   `default_plan` int(11) DEFAULT NULL
@@ -80,8 +83,9 @@ CREATE TABLE `plan` (
 -- Dumping data for table `plan`
 --
 
-INSERT INTO `plan` (`userID`, `planID`, `budget`, `plan_limit`, `default_plan`) VALUES
-(2, 2, 20, 500, NULL);
+INSERT INTO `plan` (`userID`, `planID`, `categoryID`, `budget`, `plan_limit`, `default_plan`) VALUES
+(2, 2, 1, 20, 500, NULL),
+(2, 3, 3, 500, 1500, NULL);
 
 -- --------------------------------------------------------
 
@@ -162,6 +166,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `fname`, `lName`, `email`, `n
 --
 ALTER TABLE `accountsettings`
   ADD UNIQUE KEY `accountName` (`accountName`),
+  ADD UNIQUE KEY `planID` (`planID`),
   ADD KEY `userID` (`userID`);
 
 --
@@ -209,7 +214,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `plan`
 --
 ALTER TABLE `plan`
-  MODIFY `planID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `planID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sources`
