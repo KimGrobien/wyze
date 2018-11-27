@@ -46,25 +46,46 @@ endif;
     <head>
         <meta charset="UTF-8">
         <title>WYZE Sign Up</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <link rel="stylesheet" href="assets/css/landing.css"/>
     </head>
     <body>
-        <div class="form-popup" id="myForm">
-        <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
+        <!-- Header -->
+        <header id="header">
+        <div class="inner">
+	        <a href="index.php" class="logo"><strong>Wyze</strong></a>
+    	    <nav id="nav">
+		        Learn | Budget | Succeed
+	        </nav>
+	        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+        </div>
+        </header>
+
+        <!-- Banner -->
+        <section id="banner">
+        <div class="inner">
+	    <header>
             <h1>Sign Up</h1>
+        </header>
+	    <div class="flex">
+            <div class="form-popup" id="myForm">
+                <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
 
-        <label for="usr"><b>Username:</b></label>
-        <input type="text" placeholder="Enter Username" name="signupusr" required>
-
-        <label for="email"><b>Email:</b></label>
-        <input type="text" placeholder="Enter Email" name="signupemail" required>
-    
-        <label for="psw"><b>Password:</b></label>
-        <input type="password" placeholder="Enter Password" name="signuppsw" required>
-    
-        <a href="" class="button" name="signup">Sign Up!</a><br>
-        <button type="button" class="button" onclick="closeForm()">Close</button>
-  </form>
-</div>
+                    <label for="usr"><b>Username:</b></label>
+                    <input type="text" placeholder="Enter Username" name="signupusr" required>
+                    
+                    <label for="email"><b>Email:</b></label>
+                    <input type="text" placeholder="Enter Email" name="signupemail" required>
+                    
+                    <label for="psw"><b>Password:</b></label>
+                    <input type="password" placeholder="Enter Password" name="signuppsw" required>
+                    
+                    <a href="" class="button" name="signup">Sign Up!</a><br>
+                    <button type="button" class="button" onclick="closeForm()">Close</button>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
 
