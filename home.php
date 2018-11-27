@@ -2,8 +2,12 @@
 require_once("db_con.php");
 $connection = connect_to_db();
 
-
-
+    
+    $sql = sprintf("SELECT * FROM categories where userID = 1");
+    $result = $connection->query($sql) or die(mysqli_error($connection));
+    //get array of catagory names
+    //get array of total transactions for each catagory
+    //get deafault plan
 ?>
 <html>
 	<head>
@@ -13,6 +17,11 @@ $connection = connect_to_db();
 		
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script>
+  	
+  	var catagoryNames; //use the above array to create this js array
+  	var totalTransactionsForCatagory; //use above array to populate this array
+  </script>
 		
 	</head>
 	<body class="subpage">
@@ -44,12 +53,8 @@ $connection = connect_to_db();
 											</thead>
 											<tbody>
 												<tr>
-												  <td>ChaseChecking</td>
-												  <td>$302.58</td>
-												</tr>
-												<tr>
-												  <td>Savings</td>
-												  <td>$950.03</td>
+												  <td id="plan">PlanName</td>
+												  <td id="spent">PlanData</td>
 												</tr>
 											</tbody>
 											<tfoot>
@@ -71,15 +76,13 @@ $connection = connect_to_db();
 					let pieChart = new Chart(myChart, {
 						type:'pie',
 						data:{
-							labels:['Food','Entertainment','Utilities','Rent','Other'],
+							labels:[/*CatagoryNames*/],
 							datasets:[{
-								label:'Ammounts',
+								label:'Spent',
 								data:[
-									150,
-									300,
-									200,
-									450,
-									100
+									/*
+									CatagoryAmounts
+									*/
 									],
 								backgroundColor: [
 									'rgba(108,192,145,.6)',
