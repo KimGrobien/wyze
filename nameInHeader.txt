@@ -1,0 +1,6 @@
+$sql = sprintf("Select fname FROM users WHERE id = '%s'",
+$connection->real_escape_string($_SESSION["username"]));
+$result = $connection->query($sql) or die(mysqli_error());
+$row = $result->fetch_assoc();
+
+echo("Hello, " . $row["fname"] . "!");

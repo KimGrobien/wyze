@@ -39,10 +39,13 @@
 
                     if ($result === false):
                         die("Could not query database");
-                    else:
+                    else:?>
                         
+                        <script>
+                            document.getElementById("overlay").style.display = "block";
+                        </script>
                         
-                        $host = $_SERVER["HTTP_HOST"];
+                        <?php$host = $_SERVER["HTTP_HOST"];
                         $path = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
                         header("Location: http://$host$path/index.php");
                         exit;
@@ -60,15 +63,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="assets/css/main.css" />
         <link rel="stylesheet" href="assets/css/landing.css"/>
+        <link rel="stylesheet" href="assets/css/transactions.css"/>
     </head>
     <body class="subpage">
+        <div class="overlay">
+            <p class="logo"><strong>Success!</strong></p>
+        </div>
         
         <!-- Header -->
         <header id="header">
         <div class="inner">
 	        <a href="index.php" class="logo"><strong>WYZE</strong></a>
     	    <nav id="nav">
-		        Learn | Budget | Succeed
+		      Learn | Budget | Succeed
 	        </nav>
 	        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
         </div>
