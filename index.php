@@ -69,7 +69,8 @@
                       $sql = sprintf("Select id From users where username = '%s'",
                       $connection->real_escape_string($_POST["loginusr"]));
                       $result = $connection->query($sql) or die(mysqli_error());
-                      $_SESSION["username"] = $result->fetch_assoc();
+                      $row = $result->fetch_assoc();
+                      $_SESSION["username"] = $row['id'];
                       
                       
                       setcookie("loginusr", $_COOKIE["loginusr"], time() + 7 * 24 * 60 * 60);
