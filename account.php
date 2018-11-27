@@ -27,6 +27,17 @@
 		}
 	}
 	
+	if (isset($_POST['addAccount'])) { 
+		if (isset($_POST['newType']) && isset($_POST['newAccName']) && isset($_POST['newBudget']) && isset($_POST['newLimit'])) {
+			$accountType = $_POST['newType']; $accountName = $_POST['newAccName']; $budget = $_POST['newBudget']; $limit = $_POST['newLimit'];
+			mysqli_query($connection, "insert into accountsettings(userID, accountName) values (2, '$accountName')");
+			mysqli_query($connection, "insert into plan(userID, budget, plan_limit) values (2, '$budget', '$limit')");
+			if (isset($_POST['newDefault'])) {
+				mysqli_query($connection, "insert into plan(default_plan) values (1) where userID = 2");
+			}
+		}
+	}
+	
 	?>
 	
    <body class="subpage">
@@ -128,29 +139,21 @@
                </div>
                <div class="4u$ 12u$(medium)">
                   <h3>Add a new account</h3>
-                  <select name="demo-category" id="demo-category">
-                     <option value="">- Account Type Dropdown -</option>
-                     <option value="1">Bills</option>
-                     <option value="1">Loans</option>
-                     <option value="1">Cars</option>
-                     <option value="1">Banking</option>
-                     <option value="1">Investment</option>
+                  <select name="newType">
+                     <option value="">- Account Type -</option>
+                     <option value="1"><?php echoSQL($connection, "select categoryName from categories where categoryID = 1", "categoryName");?></option>
+                     <option value="2"><?php echoSQL($connection, "select categoryName from categories where categoryID = 2", "categoryName");?></option>
+                     <option value="3"><?php echoSQL($connection, "select categoryName from categories where categoryID = 3", "categoryName");?></option>
+                     <option value="4"><?php echoSQL($connection, "select categoryName from categories where categoryID = 4", "categoryName");?></option>
                   </select>
                   <br />
-                  <input name="" id="" value="" placeholder="Name" type="text"><br />
-                  <input name="" id="" value="" placeholder="Attribute 1" type="text"><br />
-                  <input name="" id="" value="" placeholder="Attribute 2" type="text"><br />
-                  <input name="" id="" value="" placeholder="Attribute 3" type="text"><br />
+                  <input name="newAccName" placeholder="Account name" type="text"><br />
+                  <input name="newBudget" placeholder="Budget" type="text"><br />
+                  <input name="newLimit" placeholder="Budget limit" type="text"><br />
                   <div class="6u$(small)">
-                     <input id="test1" name="test" type="radio" checked><label for="test1">Radio 1</label>
-                     <input id="test2" name="test" type="radio"><label for="test2">Radio 2</label>
+                     <input name="newDefault" id="newDefault" type="checkbox"><label for="newDefault">Default account</label>
                   </div>
-                  <div class="6u$(small)">
-                     <input id="check1" name="checkbox" type="checkbox"><label for="check1">Radio 1</label>
-                     <input id="check2" name="checkbox" type="checkbox" checked><label for="check2">Radio 2</label>
-                     <input id="check3" name="checkbox" type="checkbox"><label for="check3">Radio 2</label>
-                  </div>
-                  <a href="#" class="button special">Add account</a>
+                  <input type="submit" name="addAccount" value="Add account" class="button special">
                </div>
             </div>
 			<br />
