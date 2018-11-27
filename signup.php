@@ -20,26 +20,7 @@
                 // execute query
                 $result = $connection->query($sql) or die(mysqli_error());           
                 
-                // check whether we found a row
-                if ($result->num_rows == 1):
-                    ?><div style="color: red">Username is already used!</div><?php
-                else:
-                    $sql = sprintf("INSERT INTO `users`() VALUES ('%s', password('%s'))",
-                    $connection->real_escape_string($_POST["user"]),
-                    $connection->real_escape_string($_POST["pass"]));
-                endif;
-                
-                    // execute query
-                    $result = $connection->query($sql) or die(mysqli_error($connection));  
-                
-                if ($result === false):
-                    die("Could not query database");
-                
-                endif;
-            endif;
-        endif;
-    
-    ?>
+            ?>
 
 <!DOCTYPE html>
 <html>
@@ -71,6 +52,37 @@
         </header>
             <div class="" id="myForm">
                 <form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
+                    
+                <?php
+
+                    // check whether we found a row
+                    if ($result->num_rows == 1):
+                ?>      <div style="color: red">Username is already used!</div><?php
+                    else:
+                        $sql = sprintf("INSERT INTO `users`('username','password','fname','lname','email','numPhone') 
+                                        VALUES ('%s', password('%s'),'%s','%s','%s','%s')",
+                        $connection->real_escape_string($_POST["usr"]),
+                        $connection->real_escape_string($_POST["psw"]),
+                        $connection->real_escape_string($_POST["fname"]),
+                        $connection->real_escape_string($_POST["lname"]),
+                        $connection->real_escape_string($_POST["email"]),
+                        $connection->real_escape_string($_POST["phone"]));
+                        endif;
+
+                        // execute query
+                        $result = $connection->query($sql) or die(mysqli_error($connection));  
+
+                        if ($result === false):
+                            die("Could not query database");
+
+                        endif;
+                    endif;
+            endif;
+
+
+
+?>
+                    
 
                     <label for="usr"><b>Username:</b></label>
                     <input type="text" placeholder="Enter Username" name="usr" required>
