@@ -6,6 +6,29 @@
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="stylesheet" href="assets/css/main.css" />
    </head>
+   <?php
+	require_once("db_con.php");
+	$connection = connect_to_db();
+	
+	function echoSQL($connection, $statement, $label) {
+		$sql = sprintf($statement);
+		$result = mysqli_query($connection, $sql);
+		$row = mysqli_fetch_assoc($result);
+		echo $row[$label];
+	}
+	
+	if (isset($_POST['personalSave'])) {
+		$fname = $_POST['fname']; $lname = $_POST['lname']; $email = $_POST['email']; $phone = $_POST['phone'];
+		$pass1 = $_POST['password1']; $pass2 = $_POST['password2'];
+		mysqli_query($connection, "update users set fname='$fname', lName='$lname', email='$email', numPhone='$phone' where id = 2");
+		
+		if ((isset($_POST['password1']) && isset($_POST['password2'])) && ($_POST['password1'] == $_POST['password2'])) {
+			mysqli_query($connection, "update users set password='$pass1' where id = 2");
+		}
+	}
+	
+	?>
+	
    <body class="subpage">
       <header id="header">
          <div class="inner">
@@ -25,6 +48,7 @@
                <h2>My Account</h2>
                <p>Edit account options, linked data, and personal information.</p>
             </header>
+			<form method="POST">
             <div class="row">
                <div class="4u 12u$(medium)">
                   <h3>Account 1</h3>
@@ -133,17 +157,20 @@
 			<h3>Personal information</h3>
 			<div class="row">
 				<div class="6u 12u$(medium)">
-				  <input name="" id="" value="" placeholder="First name" type="text"><br />
-                  <input name="" id="" value="" placeholder="Last name" type="text"><br />
-                  <input name="" id="" value="" placeholder="Email" type="text"><br />
-                  <input name="" id="" value="" placeholder="Phone number" type="text"><br />
+				  <input name="fname" value="<?php echoSQL($connection, "select fname from users where id = 2", "fname");?>" placeholder="First name" type="text"><br />
+                  <input name="lname" value="<?php echoSQL($connection, "select lname from users where id = 2", "lname");?>" placeholder="Last name" type="text"><br />
+				  <input name="password1" placeholder="New password" type="password"><br />
+				  <input name="password2" placeholder="Repeat new password" type="password"><br />
+                  <input name="email" value="<?php echoSQL($connection, "select email from users where id = 2", "email");?>" placeholder="Email" type="text"><br />
+                  <input name="phone" value="<?php echoSQL($connection, "select numPhone from users where id = 2", "numPhone");?>" placeholder="Phone number" type="text"><br />
 				  <input id="optin" name="opt-check" type="checkbox"><label for="optin">Opt-in to monthly emails?</label>
 				</div>
 				<div class="6u$ 12u$(medium)">
-					<a href="#" class="button special">Save changes</a>
+					<input name="personalSave" type="submit" value="Save changes" class="button special">
 				</div>
 			</div>
          </div>
+		 </form>
       </section>
    </body>
 </html>
