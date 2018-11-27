@@ -1,5 +1,6 @@
 <?php
     require_once('db_con.php');
+    session_start();
     if (isset($_POST['importedData'])){
         $connection = connect_to_db();
         $first = true;
@@ -18,6 +19,7 @@
             }
         }
         $sql = substr($sql, 0, -1);//Remove trailing comma
+        echo "$sql";
         $result = $connection->query($sql) or die(mysqli_error($connection));
         if ($result === false)
             die("Could not query database");
