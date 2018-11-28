@@ -123,6 +123,7 @@ function addImportedData(data){
     for (var i = 1; i < data.length; i++){
         if(data[i][amountColIdx[1]] != ""){
             data.splice(i, 1);
+            i -= 1; //Make sure we don't miss a transaction
         }
     }
     var source = prompt("Please enter the source", "cash");
