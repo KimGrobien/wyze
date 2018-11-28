@@ -4,13 +4,22 @@ table.alt2 tbody tr:nth-child(2n + 1) {
 
 table.alt2 {
 	border-collapse: separate;
+	width: 60%;
+	margin: auto;
 }
 
 div.progress {
-    width: 300px;
+    width: 100%;
 }
 
 table.alt2 a{
-    position: relative;
-    float: right;
+    margin-right: 2em;
+}
+
+table.alt2 tbody tr td.tot{
+    padding-left: 70px;
+}
+
+table.alt2 tbody tr td.catName{
+	width: 35%;
 }
