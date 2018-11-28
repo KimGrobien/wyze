@@ -99,6 +99,7 @@
 	          <a href="transactions.php">Transactions</a>
 	          <a href="budget.php">Budget</a>
 	          <a href="account.php">My Account</a>
+	          <a href="logout.php">Log out</a> 
 	        </nav>
 	        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
 	      </div>

@@ -1,7 +1,7 @@
 <?php
     function connect_to_db()
     {
-        define("USER", "test1");
+        define("USER", "test");
         define("PASS", "test");
         define("DB", "wyze");
     
