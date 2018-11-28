@@ -1,7 +1,7 @@
 <?php
 	require_once('db_con.php');
 	require_once('transactions_operations.php');
-    
+    session_start();
     $connection = connect_to_db();
     
     if (isset($_POST['add'])){
@@ -10,7 +10,7 @@
     $transactions = get_transactions($connection);   
     
     //Get categories - TODO dynamic userID
-    $sql = sprintf("SELECT * FROM categories where userID = 1");
+    $sql = sprintf("SELECT * FROM categories where userID = %d", $_SESSION["username"]);
     $result = $connection->query($sql) or die(mysqli_error($connection));           
     //Add each category to associative categories array
     while ($row = $result->fetch_assoc())
@@ -18,7 +18,7 @@
        $categories[$row["categoryName"]] = $row["categoryName"];
     }
     //Get sources - TODO dynamic userID
-    $sql = sprintf("SELECT * FROM sources where userID = 1");
+    $sql = sprintf("SELECT * FROM sources where userID = %d", $_SESSION["username"]);
     $result = $connection->query($sql) or die(mysqli_error($connection));           
     //Add each category to associative categories array
     while ($row = $result->fetch_assoc())

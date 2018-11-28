@@ -8,7 +8,8 @@
                 $sql = "INSERT INTO `transactions`(`userID`, `date`, `description`, `source`, `amount`) VALUES ";
                  $first = false;
             } else {
-                $sql = $sql . sprintf("(1, '%s','%s','%s','%s'),",
+                $sql = $sql . sprintf("(%d, '%s','%s','%s','%s'),",
+                $_SESSION["username"],
                 $value[0],
                 $value[2],
                 $connection->real_escape_string($_POST["source"]),//$value[1] holds source which is unkown from data, must be gotten from prompt
@@ -43,12 +44,12 @@
     function add_transaction($connection)
     {
         if(($_POST['date'] != "") && ($_POST['name'] != "") && ($_POST['amount'] != "")){
-           $sql = sprintf("INSERT INTO `transactions`(`userID`, `date`, `description`, `source`, `amount`) VALUES (1, '%s','%s','%s','%s')",
+           $sql = sprintf("INSERT INTO `transactions`(`userID`, `date`, `description`, `source`, `amount`) VALUES (%d, '%s','%s','%s','%s')",
+                        $_SESSION["username"],
                        $connection->real_escape_string($_POST["date"]),
                        $connection->real_escape_string($_POST["name"]),
                        $connection->real_escape_string($_POST["source"]),
                        $connection->real_escape_string($_POST["amount"]));
-            
             // execute query
             $result = $connection->query($sql) or die(mysqli_error($connection));  
             if ($result === false)
@@ -58,7 +59,7 @@
     
     function get_transactions($connection)
     {
-        $sql = sprintf("SELECT transactionID, date, description, category, source, amount FROM transactions where userID = 1");
+        $sql = sprintf("SELECT transactionID, date, description, category, source, amount FROM transactions where userID = %d", $_SESSION["username"]);
         $result = $connection->query($sql) or die(mysqli_error($connection));           
         $transactions = array();
         while ($row = $result->fetch_assoc())

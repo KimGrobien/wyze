@@ -62,8 +62,17 @@
                     $result = $connection->query($sql) or die(mysqli_error());   
                     
                     // check whether we found a row
+                    $username = $_POST["loginusr"];
                     if ($result->num_rows == 1):
                       $_SESSION["authenticated"] = true;
+                      
+                      $sql = sprintf("Select id From users where username = '%s'",
+                      $connection->real_escape_string($_POST["loginusr"]));
+                      $result = $connection->query($sql) or die(mysqli_error());
+                      $row = $result->fetch_assoc();
+                      $_SESSION["username"] = $row['id'];
+                      
+                      
                       setcookie("loginusr", $_COOKIE["loginusr"], time() + 7 * 24 * 60 * 60);
                     
                       $host = $_SERVER["HTTP_HOST"];
