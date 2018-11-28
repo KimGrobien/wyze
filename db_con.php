@@ -1,9 +1,9 @@
 <?php
     function connect_to_db()
     {
-        define("USER", "test");
+        define("USER", "test1");
         define("PASS", "test");
-        define("DB", "test");
+        define("DB", "wyze");
     
         // connect to database
         $connection = new mysqli('localhost', USER, PASS, DB);
