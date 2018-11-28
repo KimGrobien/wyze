@@ -1,4 +1,26 @@
-<!DOCTYPE html>
+<?php
+require_once("db_con.php");
+$connection = connect_to_db();
+
+$jsCat = array();
+$jsTran = array();
+
+    
+    $sql = sprintf("SELECT C.categoryName FROM categories C where userID=1 group by categoryName order by categoryName");
+    $result = $connection->query($sql) or die(mysqli_error($connection));
+    //get array of catagory names
+    while ($row = $result->fetch_assoc())
+    {
+       $categories[] = $row["categoryName"];
+    }
+    
+    $sql2 = sprintf("SELECT category, Format(SUM(amount),2) as total FROM transactions where userID=1 group by category order by category");
+    $result2 = $connection->query($sql2) or die(mysqli_error($connection));
+       while ($row2 = $result2->fetch_assoc())
+    {
+       $transactions[] = $row2["total"];
+    }
+?>
 <html>
 	<head>
 		<title>Homepage</title>
@@ -7,6 +29,15 @@
 		
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script type="text/javascript">
+  	
+  	var categoryNames = <?php echo json_encode($categories); ?>;
+  	JSON.parse(categoryNames);
+  	
+  	var totalTransactionsForCategory = <?php echo json_encode($transactions); ?>;
+  	console.log(totalTransactionsForCategory[0]);
+	JSON.parse(totalTransactionsForCategory);
+  </script>
 		
 	</head>
 	<body class="subpage">
@@ -32,18 +63,14 @@
 										<table>
 											<thead>
 												<tr>
-													<th>Nickname</th>
-													<th>Balance</th>
+													<th>Plan Name</th>
+													<th>Goal</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
-												  <td>ChaseChecking</td>
-												  <td>$302.58</td>
-												</tr>
-												<tr>
-												  <td>Savings</td>
-												  <td>$950.03</td>
+												  <td id="plan">PlanName</td>
+												  <td id="spent">PlanData</td>
 												</tr>
 											</tbody>
 											<tfoot>
@@ -65,16 +92,10 @@
 					let pieChart = new Chart(myChart, {
 						type:'pie',
 						data:{
-							labels:['Food','Entertainment','Utilities','Rent','Other'],
+							labels: categoryNames,
 							datasets:[{
-								label:'Ammounts',
-								data:[
-									150,
-									300,
-									200,
-									450,
-									100
-									],
+								label:'Spent',
+								data:totalTransactionsForCategory,
 								backgroundColor: [
 									'rgba(108,192,145,.6)',
 									'rgba(122,198,156,.6)',

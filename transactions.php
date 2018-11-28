@@ -1,32 +1,72 @@
 <?php
 	require_once('db_con.php');
 	require_once('transactions_operations.php');
-    
+    session_start();
     $connection = connect_to_db();
     
     if (isset($_POST['add'])){
     	add_transaction($connection);
     }
-    
     $transactions = get_transactions($connection);   
     
-    $sql = sprintf("SELECT * FROM categories where userID = 1");
-     $result = $connection->query($sql) or die(mysqli_error($connection));           
-    
-        //Add each category to associative categories array
-        while ($row = $result->fetch_assoc())
-        {
-           $categories[$row["categoryName"]] = $row["categoryName"];
-        }
+    //Get categories - TODO dynamic userID
+    $sql = sprintf("SELECT * FROM categories where userID = %d", $_SESSION["username"]);
+    $result = $connection->query($sql) or die(mysqli_error($connection));           
+    //Add each category to associative categories array
+    while ($row = $result->fetch_assoc())
+    {
+       $categories[$row["categoryName"]] = $row["categoryName"];
+    }
+    //Get sources - TODO dynamic userID
+    $sql = sprintf("SELECT * FROM sources where userID = %d", $_SESSION["username"]);
+    $result = $connection->query($sql) or die(mysqli_error($connection));           
+    //Add each category to associative categories array
+    while ($row = $result->fetch_assoc())
+    {
+       $sources[$row["source"]] = $row["source"];
+    }
         
 ?>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script type="text/javascript">
+/* global $ */ 
 	//Passing db read categories from php to be used in js
 	var dbcategories = '<?php echo json_encode($categories); ?>';
+	var dbsources = '<?php echo json_encode($sources); ?>';
 	var transactions = '<?php echo json_encode($transactions); ?>';
 	transactions = JSON.parse(transactions);
 	//alert(JSON.parse(transactions));
-	
+	function deleteFromDB(id) {
+        $.ajax({
+	        url: 'transactions_operations.php',
+	        type: 'POST',
+	        data: {deleteID:id},
+	        success: function(data) {
+	            console.log(data); // Inspect this in your console
+	        }
+    	});  
+	}
+	function updateInDB(updateID, updateColumn, updateValue) {
+		 $.ajax({
+	        url: 'transactions_operations.php',
+	        type: 'POST',
+	        data: {updateID:updateID, updateColumn: updateColumn, updateValue: updateValue},
+	        success: function(data) {
+	            console.log(data); // Inspect this in your console
+	        }
+    	});  
+	}
+	function addImportedDataToDB(data, source){
+		 document.getElementById("overlay").style.display = "block";//Loading bar with dimmed background
+		$.ajax({
+	        url: 'transactions_operations.php',
+	        type: 'POST',
+	        data: {importedData: data, source: source},
+	        success: function(data) {
+	           window.location.reload();
+	        }
+    	});
+	}
 </script>
 
 <html>
@@ -45,6 +85,12 @@
 		<script type="text/javascript" src="assets/js/moment.js"></script>
 	</head>
 	<body onload="addTable()" class="subpage">
+		<div id="overlay">
+			<div>
+	        	<img id="progress" alt="Please Wait" src="loading.gif">
+	        	<br><br>
+	      	</div>
+		</div>
 		<header id="header">
 	      <div class="inner">
 	        <a href="home.php" class="logo"><strong>Wyze</strong></a>
@@ -66,7 +112,7 @@
 				<input type="file" id="inFile" hidden="true" onchange="readFile(this)">
 			</div>
 			<div id="addDiv">
-				<form action="<?= $_SERVER["PHP_SELF"] ?>" method="post">
+				<form action="<?= $_SERVER["PHP_SELF"]; ?>" method="post">
 					<input type="text" name="date" placeholder="Date" id="inDate"/>
 					<input type="text" name="name" placeholder="Name" id="inName"/>
 					<input type="text" name="source" placeholder="Source" id="inSource"/>

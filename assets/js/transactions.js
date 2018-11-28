@@ -2,6 +2,7 @@ var table;
 var transactionIndex = 2;
 var dblClick = false;
 var categories = JSON.parse(dbcategories);
+var sources = JSON.parse(dbsources);
 var tabledata;
 
 function convertDBToRows(){
@@ -93,10 +94,10 @@ function parseSingleCSV(csvString) {
         var rows = csvString.split("\n");
         data[i] = rows[i].split(",");
     }
-    addImportedDataToTable(data);
+    addImportedData(data);
 }
 
-function addImportedDataToTable(data){
+function addImportedData(data){
     var dateColIdx, descColIdx, amountColIdx;
     for(var i = 0; i < data[0].length; i ++){
         switch (data[0][i]) {
@@ -118,48 +119,35 @@ function addImportedDataToTable(data){
                 break;
         }
     }
-
+    //Remove all credit transactions (ignore income)
+    for (var i = 1; i < data.length; i++){
+        if(data[i][amountColIdx[1]] != ""){
+            data.splice(i, 1);
+        }
+    }
+    var source = prompt("Please enter the source", "cash");
+    addImportedDataToDB(data, source);
     var date, description, amount;
     for (var i = 1; i < data.length; i++){
         date = data[i][dateColIdx]
         description = data[i][descColIdx]
-        if (amountColIdx.constructor === Array){
-            if (data[i][amountColIdx[0]] != ""){
-                //Debit, thus negative amount
-                amount = "-" + data[i][amountColIdx[0]];
-            }else{
-                amount = data[i][amountColIdx[1]];
-            }
-        }else{
-            amount = data[i][amountColIdx];
-        }
+        amount = data[i][amountColIdx[0]];
         //Add row
         if (amount != "") {
             transactionIndex++;
-            table.addRow({id:transactionIndex, date: moment(date).format("MM/DD/YYYY"), description:description, source:"", amount:Number(amount).toFixed(2)}, true);
+            //table.addRow({id:transactionIndex, date: moment(date).format("MM/DD/YYYY"), description:description, source:source, amount:Number(amount).toFixed(2)}, true);
         }
     }
 }
 
 function addTransaction(){
-    var dateVal = document.getElementById('inDate').value;
-    var descVal = document.getElementById('inName').value;
-    var sourceVal = document.getElementById('inSource').value;
-    var amountVal = document.getElementById('inAmount').value;
     if ((dateVal == "") || (descVal == "") || (amountVal == "")){
         alert("Please enter values for each field.");
-    }else{
-        transactionIndex++;
-        table.addRow({id:transactionIndex, date: moment(dateVal).format("MM/DD/YYYY"), description:descVal, source:sourceVal, amount:amountVal}, true);
     }
 }
 
 function addTable(){
     tabledata = convertDBToRows();
-    /*var tabledata = [
-        {id:1, date:moment("9/20/2018").format("MM/DD/YYYY"), description:"Chick-fil-A", source: "cash", category:"Food and Dining", amount:"7.93"},
-        {id:2, date:moment("10/03/2018").format("MM/DD/YYYY"), description:"Marathon", source: "creidt", category:"Gas and Fuel", amount:"31.50"},
-    ];*/
 
     table = new Tabulator("#tableDiv", {
         data:tabledata, //load initial data into table
@@ -169,14 +157,18 @@ function addTable(){
             {title:"Date", field:"date", sorter:"date", format: "MM/DD/YYYY", align:"left", editor: true, editable: editCheck},
             {title:"Description", field:"description", sorter:"string", align:"left", editor: true, editable: editCheck},
             {title:"Category", field:"category", sorter:"string", align:"left", editor: "select", editorParams:categories},
-            {title:"Source", field:"source", sorter:"string", align:"left", editor: "select", editorParams:categories},
+            {title:"Source", field:"source", sorter:"string", align:"left", editor: "select", editorParams:sources},
             {title:"Amount", field:"amount", sorter:"number", align:"left", editor: true, editable: editCheck},
             {formatter:"tickCross", width:40, align:"center", cellClick:function(e, cell){
                 if (confirm("Are you sure you want to delete this transaction?")) {
+                    deleteFromDB(cell.getRow().getCell("id").getValue());
                     table.deleteRow(cell.getRow());
                 }
             }},
         ],
+         cellEdited:function(cell){
+            updateInDB(cell.getRow().getCell("id").getValue(), cell.getColumn().getField(), cell.getValue());
+        },
         cellDblClick:function(e, cell){
             //Editable on triple click
                 dblClick = true;
