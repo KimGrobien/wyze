@@ -76,6 +76,10 @@
 		<link rel="stylesheet" href="assets/css/transactions.css"/>
 		<link href="https://unpkg.com/tabulator-tables@4.0.4/dist/css/tabulator.min.css" rel="stylesheet">
 		<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+		
+		<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
 		<script src="assets/js/transactions.js"></script>
 		<script type="text/javascript" src="https://unpkg.com/tabulator-tables@4.0.4/dist/js/tabulator.min.js"></script>
 		<script type="text/javascript" src="assets/js/moment.js"></script>

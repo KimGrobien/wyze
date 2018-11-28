@@ -18,6 +18,7 @@
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="assets/css/budget.css"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 	</head>
 	<body class="subpage">
 
@@ -71,7 +72,7 @@
 										</section>
 								  	</div>
 						    	</li>
-					        	<li><button class="subcategory_open">Add Subcategory</button>
+				<!--	        	<li><button class="subcategory_open">Add Subcategory</button>
 						    		<div id="subcategory">
 						    			<head>
 											<link rel="stylesheet" href="assets/css/main.css" />
@@ -110,7 +111,7 @@
 											</footer>
 										</section>
 								  	</div>
-						    	</li>
+						    	</li>  -->
 								<li><button class="edit_open">Edit Categories</button>
 						    		<div id="edit">
 						    			<head>
@@ -144,7 +145,7 @@
 											<footer class="align-center">
 												<input type="submit" class="edit_close" value="Delete Category">
 												<input type="submit" class="edit_close" value="Change Category Name">
-												<input type="submit" class="edit_close" value="Edit Subcategory">
+											<!--	<input type="submit" class="edit_close" value="Edit Subcategory"> -->
 												<button class="edit_close">Close</button>
 											</footer>
 										</section>
@@ -156,58 +157,44 @@
 						<table class="alt2">
 							<tbody>
 								<tr>
-									<td><strong>Total</strong></td>
+									<td class= "tot"><strong>Total</strong></td>
 									<td>
-									   <div class="progress">
-                                          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">$300 of $600</div>
-                                        </div>
-									</td>
-									<td></td>
-								</tr>
-								<tr>
-									<td>Food and Dining</td>
-									<td>
-									        <div class="progress">
-                                                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">$100 of $250</div>
-                                            </div>
-									</td>
-									<td>
-									    <a href="#"> <span class="glyphicon glyphicon-edit"></span></a>
+									   	<div class="progress">
+	                                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">$300 of $600</div>
+	                                  	</div>
 									</td>
 								</tr>
 								<tr>
-									<td>Gas and Fuel</td>
+									<td class="catName"><a href="#"> <span class="glyphicon glyphicon-edit"></span></a>Food and Dining</td>
+									<td>
+								        <div class="progress">
+	                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">$100 of $250</div>
+	                                    </div>
+									</td>
+								</tr>
+								<tr>
+									<td class="catName"><a href="#"> <span class="glyphicon glyphicon-edit"></span></a>Gas and Fuel</td>
 									<td>
 									    <div class="progress">
                                           <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">$30 of $100</div>
                                         </div>
 									</td>
-									<td>
-									    <a href="#"> <span class="glyphicon glyphicon-edit"></span></a>
-									</td>
 								</tr>
 								<tr>
-									<td>Shopping</td>
+									<td class="catName"><a href="#"> <span class="glyphicon glyphicon-edit"></span></a>Shopping</td>
 									<td>
 									    <div class="progress">
                                           <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 25%">$20 of $100</div>
                                         </div>
 									</td>
-									<td>
-									    <a href="#"> <span class="glyphicon glyphicon-edit"></span></a>
-									</td>
 								</tr>
 								<tr>
-									<td>Electric</td>
+									<td class="catName"><a href="#"><span class="glyphicon glyphicon-edit"></span></a>Electric</td>
 									<td>
 									    <div class="progress">
                                           <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">$150 of $150</div>
-                                        
                                         </div>
                                     </td>
-									<td>
-									    <a href="#"> <span class="glyphicon glyphicon-edit"></span></a>
-									</td>
 								</tr>
 							</tbody>
 						</table>

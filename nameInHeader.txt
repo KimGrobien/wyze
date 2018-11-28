@@ -1,0 +1,11 @@
+
+//adds name of person logged in in the header of the page
+$sql = sprintf("Select fname FROM users WHERE id = '%s'",
+$connection->real_escape_string($_SESSION["username"]));
+$result = $connection->query($sql) or die(mysqli_error());
+$row = $result->fetch_assoc();
+
+echo("Hello, " . $row["fname"] . "!");
+
+//add to the end of the menu bar in the header
+ <a href="logout.php">Log out</a>
