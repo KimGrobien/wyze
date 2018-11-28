@@ -1,3 +1,10 @@
+<?php
+
+    session_start();
+    session_destroy();
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,7 +29,7 @@
         <section id="main" class="wrapper">
         <div class="inner">
 	    <header class="align-center">
-            <h2>Success!</h2>
+            <h2>You have successfully logged out.</h2>
             <br>
             <a href="index.php">Go to Login Page</a>
         </header>
