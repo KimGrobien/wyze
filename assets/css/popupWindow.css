@@ -2,6 +2,10 @@ h2.popup{
     color: white;
 }
 
+div > .success{
+    color:"#6cc091";
+}
+
 #inputs > .in {
     margin: 0 0 1em 0;
 }

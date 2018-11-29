@@ -1,8 +1,6 @@
 <?php
 
     function show_table($table, $con){
-        $con = connect_to_db("cs372", "", "hw12");
-        
         $sql = sprintf("SELECT * FROM %s", $con->real_escape_string($table));
         
         $result = $con->query($sql) or die(mysqli_error($con));
@@ -10,9 +8,21 @@
         echo results_to_table($result);
     }
     
-    function resultsToTable($results){
+    function getPlanLimit($con){
+        $sql = sprintf("SELECT * FROM %s", $con->real_escape_string($table));
+        
+        $result = $con->query($sql) or die(mysqli_error($con));
+    }
+    
+    function resultsToTable($results, $con){
         $table = "<table>\n";
         $i = 0;
+        
+        if($i == 0){
+            $table .= "<tr>\n";
+            
+            
+        }
         
         while($row = $results->fetch_assoc()){
             if($i == 0){

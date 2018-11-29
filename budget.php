@@ -5,16 +5,21 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 -->
 <?php
+	require_once("insertValuesTest.php");
 
-
+	$message = "";
+	
+	if(isset($_POST['catSubmit'])){
+		$message = addValues($_POST['newCatName']);
+	}
 ?>
 
 <html>
 	<head>
 		<title>Budget</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="stylesheet" href="assets/css/main.css"/>
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="assets/css/budget.css"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -47,7 +52,7 @@
 						    		<div id="category">
 						    			<head>
 											<link rel="stylesheet" href="assets/css/main.css" />
-											<link rel="stylesheet" href="assets/css/newPlan.css" />
+											<link rel="stylesheet" href="assets/css/popupWindow.css" />
 									    </head>
 								        <header id="header">
 										    <div class="inner">
@@ -58,16 +63,16 @@
 											<header class="align-center">
 												<h2 class="popup">Add New Category</h2>
 											</header>
-											<form method="post" action="">
+											<form method="post" action="budget.php">
 												<div id="inputs">
 													<div class="in">
-														<input type="text" name="demo-name" id="demo-name" value="" placeholder="Category Name" />
+														<input type="text" name="newCatName" id="newCatName" placeholder="Category Name" />
 													</div>
 												</div>
-											</form>
 											<footer class="align-center">
-												<input type="submit" class="category_close" value="Add Category">
-												<button class="category_close">Close</button>
+													<input type="submit" name="catSubmit" onclick="return errorCheck();" value="Add Category">
+													<button class="category_close">Close</button>
+												</form>
 											</footer>
 										</section>
 								  	</div>
@@ -76,7 +81,7 @@
 						    		<div id="subcategory">
 						    			<head>
 											<link rel="stylesheet" href="assets/css/main.css" />
-											<link rel="stylesheet" href="assets/css/newPlan.css" />
+											<link rel="stylesheet" href="assets/css/popupWindow.css" />
 									    </head>
 								        <header id="header">
 										    <div class="inner">
@@ -116,7 +121,7 @@
 						    		<div id="edit">
 						    			<head>
 											<link rel="stylesheet" href="assets/css/main.css" />
-											<link rel="stylesheet" href="assets/css/newPlan.css" />
+											<link rel="stylesheet" href="assets/css/popupWindow.css" />
 									    </head>
 								        <header id="header">
 										    <div class="inner">
@@ -152,6 +157,7 @@
 								  	</div>
 						    	</li>
 							</ul>
+							<div><?php echo $message; ?></div>
 					</header>
 					<div class="table-wrapper">
 						<table class="alt2">
@@ -205,7 +211,7 @@
 					    		<div id="plan">
 					    			<head>
 										<link rel="stylesheet" href="assets/css/main.css" />
-										<link rel="stylesheet" href="assets/css/newPlan.css" />
+										<link rel="stylesheet" href="assets/css/popupWindow.css" />
 								    </head>
 							        <header id="header">
 									    <div class="inner">
@@ -239,7 +245,7 @@
 					    		<div id="budget">
 					    			<head>
 										<link rel="stylesheet" href="assets/css/main.css" />
-										<link rel="stylesheet" href="assets/css/newPlan.css" />
+										<link rel="stylesheet" href="assets/css/popupWindow.css" />
 								    </head>
 							        <header id="header">
 									    <div class="inner">
@@ -320,7 +326,20 @@
 			      $('#edit').popup({
 			      });
 			    });
+			    
+			   
   			</script>
-			
+  			<script>
+  				function errorCheck(){
+				    if(document.getElementById("newCatName").value == ""){
+				        alert("Complete all inputs or press cancel!");
+				        return false;
+				    }
+				    else if(!document.getElementById("newCatName").value == ""){
+				    	alert("Success!");
+				    	return true;
+  					}
+  				}
+  			</script>
 	</body>
 </html>
