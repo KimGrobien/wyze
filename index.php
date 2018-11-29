@@ -57,7 +57,7 @@
                     $sql = sprintf("Select 1 FROM users WHERE username = '%s' AND password = password('%s')",
                     $connection->real_escape_string($_POST["loginusr"]),
                     $connection->real_escape_string($_POST["loginpass"]));
-                    
+                    echo "$sql";
                     // execute query
                     $result = $connection->query($sql) or die(mysqli_error());   
                     
