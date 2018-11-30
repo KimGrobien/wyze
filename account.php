@@ -8,8 +8,9 @@
    </head>
    <?php
 	require_once("db_con.php");
+	session_start();
 	$connection = connect_to_db();
-	
+	$sessionID = $_SESSION["username"];
 	$acctArray;
 	
 	function echoSQL($connection, $statement, $label) {
@@ -32,17 +33,17 @@
 	if (isset($_POST['addAccount'])) { 
 		if (isset($_POST['newType']) && isset($_POST['newAccName']) && isset($_POST['newBudget']) && isset($_POST['newLimit'])) {
 			$accountType = $_POST['newType']; $accountName = $_POST['newAccName']; $budget = $_POST['newBudget']; $limit = $_POST['newLimit'];
-			mysqli_query($connection, "insert into accountsettings(userID, accountName) values (2, '$accountName')");
-			mysqli_query($connection, "insert into plan(userID, categoryID, budget, plan_limit) values (2, '$accountType', '$budget', '$limit')");
+			mysqli_query($connection, "insert into accountsettings(userID, accountName) values ($sessionID, '$accountName')");
+			mysqli_query($connection, "insert into plan(userID, categoryID, budget, plan_limit) values ('$sessionID', '$accountType', '$budget', '$limit')");
 			if (isset($_POST['newDefault'])) {
-				mysqli_query($connection, "insert into plan(default_plan) values (1) where userID = 2");
+				mysqli_query($connection, "insert into plan(default_plan) values (1) where userID = $sessionID");
 			}
 		}
 	}
 	
 	if (isset($_POST['deleteAcct'])) {
-		mysqli_query($connection, "delete from plan where userID = 2");
-		mysqli_query($connection, "delete from accountsettings where userID = 2");
+		mysqli_query($connection, "delete from plan where userID = $sessionID");
+		mysqli_query($connection, "delete from accountsettings where userID = $sessionID");
 	}
 	
 	?>
@@ -69,8 +70,8 @@
 			<form method="POST">
 					
 					<?php
-						$result1 = mysqli_query($connection, "select * from accountsettings where userID = 2");
-						$result2 = mysqli_query($connection, "select * from plan where userID = 2");
+						$result1 = mysqli_query($connection, "select * from accountsettings where userID = $sessionID");
+						$result2 = mysqli_query($connection, "select * from plan where userID = $sessionID");
 						$count = 0;
 						while ($row1 = mysqli_fetch_array($result1)) {
 							$row2 = mysqli_fetch_array($result2);
@@ -105,12 +106,12 @@
 			<div class="row">
 				<div class="6u 12u$(medium)">
 				  <h3>Personal information</h3>
-				  <input name="fname" value="<?php echoSQL($connection, "select fname from users where id = 2", "fname");?>" placeholder="First name" type="text"><br />
-                  <input name="lname" value="<?php echoSQL($connection, "select lname from users where id = 2", "lname");?>" placeholder="Last name" type="text"><br />
+				  <input name="fname" value="<?php echoSQL($connection, "select fname from users where id = $sessionID", "fname");?>" placeholder="First name" type="text"><br />
+                  <input name="lname" value="<?php echoSQL($connection, "select lname from users where id = $sessionID", "lname");?>" placeholder="Last name" type="text"><br />
 				  <input name="password1" placeholder="New password" type="password"><br />
 				  <input name="password2" placeholder="Repeat new password" type="password"><br />
-                  <input name="email" value="<?php echoSQL($connection, "select email from users where id = 2", "email");?>" placeholder="Email" type="text"><br />
-                  <input name="phone" value="<?php echoSQL($connection, "select numPhone from users where id = 2", "numPhone");?>" placeholder="Phone number" type="text"><br />
+                  <input name="email" value="<?php echoSQL($connection, "select email from users where id = $sessionID", "email");?>" placeholder="Email" type="text"><br />
+                  <input name="phone" value="<?php echoSQL($connection, "select numPhone from users where id = $sessionID", "numPhone");?>" placeholder="Phone number" type="text"><br />
 				  <input id="optin" name="opt-check" type="checkbox"><label for="optin">Opt-in to monthly emails?</label><br />
 				  <input name="personalSave" type="submit" value="Save changes" class="button special">
 				</div>
