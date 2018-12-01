@@ -6,10 +6,21 @@
 -->
 <?php
 	require_once("insertValuesTest.php");
-	require_once("showBudgetTable.php");
+	require_once("showBudgetHTML.php");
+	require_once("deleteValues.php");
 	
 	if(isset($_POST['catSubmit'])){
 		$message = addValues($_POST['newCatName']);
+		unset($_POST['catSubmit']);
+	}
+	else if(isset($_POST['delete_cat'])){
+		$message = deleteCategory($_POST['drop']);
+		unset($_POST['delete_cat']);
+		
+	}
+	else if(isset($_POST['close'])){
+		$message = " ";
+		unset($_POST['close']);
 	}
 	else{
 		$message = " ";
@@ -77,7 +88,7 @@
 												</div>
 												<footer class="align-center">
 														<input type="submit" name="catSubmit" onclick="return errorCheck();" value="Add Category">
-														<button class="category_close">Close</button>
+														<button name="close" class="category_close">Close</button>
 												</footer>
 											</form>
 										</section>
@@ -113,13 +124,14 @@
 														<?php echo categoryDropdown(); ?>
 													</div>
 												</div>
+											
+												<footer class="align-center">
+													<input type="submit" name="delete_cat" value="Delete Category">
+													<input type="submit" class="chng_name" value="Change Category Name">
+												<!--	<input type="submit" class="edit_close" value="Edit Subcategory"> -->
+													<button name="close" class="edit_close">Close</button>
+												</footer>
 											</form>
-											<footer class="align-center">
-												<input type="submit" class="delete_cat" value="Delete Category">
-												<input type="submit" class="chng_name" value="Change Category Name">
-											<!--	<input type="submit" class="edit_close" value="Edit Subcategory"> -->
-												<button class="edit_close">Close</button>
-											</footer>
 										</section>
 								  	</div>
 						    	</li>

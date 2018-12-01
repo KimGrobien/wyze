@@ -1,8 +1,9 @@
 <?php
     require_once("db_con.php");
     
-    function deleteCategory($entry_name ,$con){
-
+    function deleteCategory($entry_name){
+        $con = connect_to_db();
+        
         $sql = sprintf("DELETE FROM categories WHERE categoryName='%s';",
                 $con->real_escape_string($entry_name));
                 

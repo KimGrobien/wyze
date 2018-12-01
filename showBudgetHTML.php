@@ -1,7 +1,7 @@
 <?php
     require_once("getBudgetData.php");
     
-    function show_table($table, $con){
+ /*   function show_table($table, $con){
         $sql = sprintf("SELECT * FROM %s", $con->real_escape_string($table));
         
         $result = $con->query($sql) or die(mysqli_error($con));
@@ -45,7 +45,7 @@
         
         return $table;
     }
-    
+    */
     
     function categoryDropdown(){
         $con = connect_to_db();
@@ -53,12 +53,12 @@
         $results = getCategoriesList($con);
         
         $list = "<div class='select-wrapper'>\n";
-        $list .= "<select name='demo-category' id='demo-category'>\n";
+        $list .= "<select name='drop' id='demo-category'>\n";
         $list .= "<option value=''>- Category -</option>";
         
         while($cats = $results->fetch_assoc()){
             foreach($cats as $key => $value){
-                $list .= "<option value='1'>" . $value . "</option>\n";
+                    $list .= "<option value='" . $value . "'>" . $value . "</option>\n";
             }
         }
         
