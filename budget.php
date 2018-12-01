@@ -336,7 +336,6 @@
 				        return false;
 				    }
 				    else if(!document.getElementById("newCatName").value == ""){
-				    	alert("Success!");
 				    	return true;
   					}
   				}
