@@ -6,11 +6,17 @@
 -->
 <?php
 	require_once("insertValuesTest.php");
-
-	$message = "";
+	require_once("showBudgetTable.php");
 	
 	if(isset($_POST['catSubmit'])){
 		$message = addValues($_POST['newCatName']);
+	}
+	else{
+		$message = " ";
+	}
+	
+	function showMessage($str){
+		echo $str;
 	}
 ?>
 
@@ -69,54 +75,14 @@
 														<input type="text" name="newCatName" id="newCatName" placeholder="Category Name" />
 													</div>
 												</div>
-											<footer class="align-center">
-													<input type="submit" name="catSubmit" onclick="return errorCheck();" value="Add Category">
-													<button class="category_close">Close</button>
-												</form>
-											</footer>
+												<footer class="align-center">
+														<input type="submit" name="catSubmit" onclick="return errorCheck();" value="Add Category">
+														<button class="category_close">Close</button>
+												</footer>
+											</form>
 										</section>
 								  	</div>
 						    	</li>
-				<!--	        	<li><button class="subcategory_open">Add Subcategory</button>
-						    		<div id="subcategory">
-						    			<head>
-											<link rel="stylesheet" href="assets/css/main.css" />
-											<link rel="stylesheet" href="assets/css/popupWindow.css" />
-									    </head>
-								        <header id="header">
-										    <div class="inner">
-								                <a href="home.php" class="logo"><strong>WYZE</strong></a>
-								            </div>
-										</header>
-										<section class="wrapper">
-											<header class="align-center">
-												<h2 class="popup">Add New Subcategory</h2>
-											</header>
-											<form method="post" action="">
-												<div id="inputs">
-													<div class="in">
-														<div class="select-wrapper">
-															<select name="demo-category" id="demo-category">
-																<option value="">- Category -</option>
-																<option value="1">Food and Dining</option>
-																<option value="1">Gas and Fuel</option>
-																<option value="1">Shopping</option>
-																<option value="1">Electric</option>
-															</select>
-														</div>
-													</div>
-													<div class="in">
-														<input type="text" name="demo-name" id="demo-name" value="" placeholder="Subcategory Name" />
-													</div>
-												</div>
-											</form>
-											<footer class="align-center">
-												<input type="submit" class="subcategory_close" value="Add Subcategory">
-												<button class="subcategory_close">Close</button>
-											</footer>
-										</section>
-								  	</div>
-						    	</li>  -->
 								<li><button class="edit_open">Edit Categories</button>
 						    		<div id="edit">
 						    			<head>
@@ -132,10 +98,10 @@
 											<header class="align-center">
 												<h2 class="popup">Edit Categories</h2>
 											</header>
-											<form method="post" action="">
+											<form method="post" action="budget.php">
 												<div id="inputs">
 													<div class="in">
-														<div class="select-wrapper">
+														<!--<div class="select-wrapper">
 															<select name="demo-category" id="demo-category">
 																<option value="">- Category -</option>
 																<option value="1">Food and Dining</option>
@@ -143,13 +109,14 @@
 																<option value="1">Shopping</option>
 																<option value="1">Electric</option>
 															</select>
-														</div>
+														</div>-->
+														<?php echo categoryDropdown(); ?>
 													</div>
 												</div>
 											</form>
 											<footer class="align-center">
-												<input type="submit" class="edit_close" value="Delete Category">
-												<input type="submit" class="edit_close" value="Change Category Name">
+												<input type="submit" class="delete_cat" value="Delete Category">
+												<input type="submit" class="chng_name" value="Change Category Name">
 											<!--	<input type="submit" class="edit_close" value="Edit Subcategory"> -->
 												<button class="edit_close">Close</button>
 											</footer>
@@ -157,7 +124,7 @@
 								  	</div>
 						    	</li>
 							</ul>
-							<div><?php echo $message; ?></div>
+							<div><?php showMessage($message); ?></div>
 					</header>
 					<div class="table-wrapper">
 						<table class="alt2">

@@ -1,17 +1,12 @@
 <?php
-
+    require_once("getBudgetData.php");
+    
     function show_table($table, $con){
         $sql = sprintf("SELECT * FROM %s", $con->real_escape_string($table));
         
         $result = $con->query($sql) or die(mysqli_error($con));
         
         echo results_to_table($result);
-    }
-    
-    function getPlanLimit($con){
-        $sql = sprintf("SELECT * FROM %s", $con->real_escape_string($table));
-        
-        $result = $con->query($sql) or die(mysqli_error($con));
     }
     
     function resultsToTable($results, $con){
@@ -49,5 +44,27 @@
         $table .= "</table>\n";
         
         return $table;
+    }
+    
+    
+    function categoryDropdown(){
+        $con = connect_to_db();
+        
+        $results = getCategoriesList($con);
+        
+        $list = "<div class='select-wrapper'>\n";
+        $list .= "<select name='demo-category' id='demo-category'>\n";
+        $list .= "<option value=''>- Category -</option>";
+        
+        while($cats = $results->fetch_assoc()){
+            foreach($cats as $key => $value){
+                $list .= "<option value='1'>" . $value . "</option>\n";
+            }
+        }
+        
+        $list .= "</select>\n";
+        $list .= "</div>\n";
+        
+        return $list;
     }
 ?>
