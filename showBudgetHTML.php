@@ -53,8 +53,8 @@
         $results = getCategoriesList($con);
         
         $list = "<div class='select-wrapper'>\n";
-        $list .= "<select name='drop' id='demo-category'>\n";
-        $list .= "<option value=''>- Category -</option>";
+        $list .= "<select name='drop' id='drop'>\n";
+        $list .= "<option value='Select'>- Category -</option>";
         
         while($cats = $results->fetch_assoc()){
             foreach($cats as $key => $value){

@@ -7,7 +7,7 @@
 <?php
 	require_once("insertValuesTest.php");
 	require_once("showBudgetHTML.php");
-	require_once("deleteValues.php");
+	require_once("categoryAlterations.php");
 	
 	if(isset($_POST['catSubmit'])){
 		$message = addValues($_POST['newCatName']);
@@ -16,10 +16,14 @@
 	else if(isset($_POST['delete_cat'])){
 		$message = deleteCategory($_POST['drop']);
 		unset($_POST['delete_cat']);
-		
+	}
+	else if(isset($_POST['changeNameSubmit'])){
+		$message = changeCategoryName($_POST['drop'], $_POST['editCatName']);
+		unset($_POST['changeNameSubmit']);
 	}
 	else if(isset($_POST['close'])){
 		$message = " ";
+		header("Refresh:0");
 		unset($_POST['close']);
 	}
 	else{
@@ -87,7 +91,7 @@
 													</div>
 												</div>
 												<footer class="align-center">
-														<input type="submit" name="catSubmit" onclick="return errorCheck();" value="Add Category">
+														<input type="submit" id="add" name="catSubmit" onclick="return errorCheck(this);" value="Add Category">
 														<button name="close" class="category_close">Close</button>
 												</footer>
 											</form>
@@ -126,17 +130,49 @@
 												</div>
 											
 												<footer class="align-center">
-													<input type="submit" name="delete_cat" value="Delete Category">
-													<input type="submit" class="chng_name" value="Change Category Name">
+													<input type="submit" id="delete" name="delete_cat" onclick="return errorCheck(this);" value="Delete Category">
+													<button id="open_change_name" class="change_name_open">Change Category Name</button>
+													    		<div id="change_name">
+													    			<head>
+																		<link rel="stylesheet" href="assets/css/main.css" />
+																		<link rel="stylesheet" href="assets/css/popupWindow.css" />
+																    </head>
+															        <header id="header">
+																	    <div class="inner">
+															                <a href="home.php" class="logo"><strong>WYZE</strong></a>
+															            </div>
+																	</header>
+																	<section class="wrapper">
+																		<header class="align-center">
+																			<h2 class="popup">Change Category Name</h2>
+																		</header>
+																			<div id="inputs">
+																				<div class="in">
+																					<input type="text" name="editCatName" id="editCatName" placeholder="New Category Name" />
+																				</div>
+																			</div>
+																			<footer class="align-center">
+																					<input type="submit" id="changeName" name="changeNameSubmit" onclick="return errorCheck(this);" value="Change Category Name">
+																					<button name="close" class="change_name_close">Close</button>
+																			</footer>
+																	</section>
+															  	</div>
+													<!--<input type="submit" class="chng_name" value="Change Category Name">-->
 												<!--	<input type="submit" class="edit_close" value="Edit Subcategory"> -->
-													<button name="close" class="edit_close">Close</button>
+													<button name="close" id="close_edit_cat" class="edit_close">Close</button>
 												</footer>
 											</form>
 										</section>
 								  	</div>
 						    	</li>
 							</ul>
-							<div><?php showMessage($message); ?></div>
+							<div><?php showMessage($message); ?>
+								<script>
+									setTimeout(function(){
+										document.getElementById('message').style.display = 'none';
+									}, 4000);	
+								</script>
+							</div>
 					</header>
 					<div class="table-wrapper">
 						<table class="alt2">
@@ -276,6 +312,7 @@
 			<script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
 			
 			<script>
+				
     			$(document).ready(function() {
 			      // Initialize the plugin
 			      $('#plan').popup({
@@ -306,15 +343,43 @@
 			      });
 			    });
 			    
+			    $(document).ready(function() {
+			      // Initialize the plugin
+			      $('#change_name').popup({
+			      });
+			    });
+			    
 			   
   			</script>
+  			
+  			<script type="text/javascript">
+  				$('#open_change_name').click(function(){
+  					if(document.getElementById("drop").value == "Select"){
+  						alert("You must first select a category!");
+				        return false;
+  					}
+  					else{
+  						$('#close_edit_cat').click();
+  					}
+  				});
+
+  			</script>
+  			
   			<script>
-  				function errorCheck(){
-				    if(document.getElementById("newCatName").value == ""){
+  				function errorCheck(elem){
+				    if(document.getElementById("newCatName").value == "" && elem.id == 'add'){
 				        alert("Complete all inputs or press cancel!");
 				        return false;
 				    }
-				    else if(!document.getElementById("newCatName").value == ""){
+				    else if(document.getElementById("drop").value == "Select" && (elem.id == 'delete' || $("#open_change_name").data('clicked'))){
+				        alert("You must first select a category!");
+				        return false;
+				    }
+				    else if(document.getElementById("editCatName").value == "" && elem.id == 'changeName'){
+				    	alert("Complete all inputs or press cancel!");
+				        return false;
+				    }
+				    else{
 				    	return true;
   					}
   				}
