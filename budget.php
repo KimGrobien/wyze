@@ -17,8 +17,13 @@
 		$message = deleteCategory($_POST['drop']);
 		unset($_POST['delete_cat']);
 	}
+	else if(isset($_POST['open_change_name'])){
+		$val1 = $_POST['drop'];
+		unset($_POST['open_change_name']);
+	}
 	else if(isset($_POST['changeNameSubmit'])){
-		$message = changeCategoryName($_POST['drop'], $_POST['editCatName']);
+		/*$message = changeCategoryName($_POST['categoryName'], $_POST['editCatName']);*/
+		$val2 = $_POST['editCatName'];
 		unset($_POST['changeNameSubmit']);
 	}
 	else if(isset($_POST['close'])){
@@ -113,60 +118,55 @@
 											<header class="align-center">
 												<h2 class="popup">Edit Categories</h2>
 											</header>
-											<form method="post" action="budget.php">
+											<form id="dropdown" method="post" action="budget.php">
 												<div id="inputs">
 													<div class="in">
-														<!--<div class="select-wrapper">
-															<select name="demo-category" id="demo-category">
-																<option value="">- Category -</option>
-																<option value="1">Food and Dining</option>
-																<option value="1">Gas and Fuel</option>
-																<option value="1">Shopping</option>
-																<option value="1">Electric</option>
-															</select>
-														</div>-->
 														<?php echo categoryDropdown(); ?>
 													</div>
 												</div>
 											
 												<footer class="align-center">
 													<input type="submit" id="delete" name="delete_cat" onclick="return errorCheck(this);" value="Delete Category">
-													<button id="open_change_name" class="change_name_open">Change Category Name</button>
-													    		<div id="change_name">
-													    			<head>
-																		<link rel="stylesheet" href="assets/css/main.css" />
-																		<link rel="stylesheet" href="assets/css/popupWindow.css" />
-																    </head>
-															        <header id="header">
-																	    <div class="inner">
-															                <a href="home.php" class="logo"><strong>WYZE</strong></a>
-															            </div>
-																	</header>
-																	<section class="wrapper">
-																		<header class="align-center">
-																			<h2 class="popup">Change Category Name</h2>
-																		</header>
-																			<div id="inputs">
-																				<div class="in">
-																					<input type="text" name="editCatName" id="editCatName" placeholder="New Category Name" />
-																				</div>
-																			</div>
-																			<footer class="align-center">
-																					<input type="submit" id="changeName" name="changeNameSubmit" onclick="return errorCheck(this);" value="Change Category Name">
-																					<button name="close" class="change_name_close">Close</button>
-																			</footer>
-																	</section>
-															  	</div>
-													<!--<input type="submit" class="chng_name" value="Change Category Name">-->
-												<!--	<input type="submit" class="edit_close" value="Edit Subcategory"> -->
-													<button name="close" id="close_edit_cat" class="edit_close">Close</button>
-												</footer>
+													
+													<input type="submit" id="open_change_name" name="open_change_name" class="change_name_open" value="Change Category Name">
+														
 											</form>
+														<div id="change_name">
+											    			<head>
+																<link rel="stylesheet" href="assets/css/main.css" />
+																<link rel="stylesheet" href="assets/css/popupWindow.css" />
+														    </head>
+													        <header id="header">
+															    <div class="inner">
+													                <a href="home.php" class="logo"><strong>WYZE</strong></a>
+													            </div>
+															</header>
+															<section class="wrapper">
+																<header class="align-center">
+																	<h2 class="popup">Change Category Name</h2>
+																</header>
+																	<form method="post" action="budget.php">
+																		<div id="inputs">
+																			<div class="in">
+																				<input type="text" name="editCatName" id="editCatName" placeholder="New Category Name" />
+																			</div>
+																		</div>
+																		<footer class="align-center">
+																				<input type="submit" id="changeName" name="changeNameSubmit" onclick="return errorCheck(this);" value="Change Category Name">
+																				<button name="close" class="change_name_close">Close</button>
+																		</footer>
+																	</form>
+															</section>
+												  		</div>
+												<!--<input type="submit" class="chng_name" value="Change Category Name">-->
+											<!--	<input type="submit" class="edit_close" value="Edit Subcategory"> -->
+												<button name="close" id="close_edit_cat" class="edit_close">Close</button>
+											</footer>
 										</section>
 								  	</div>
 						    	</li>
 							</ul>
-							<div><?php showMessage($message); ?>
+							<div><?php showMessage($message); echo $val1; echo $val2; ?>
 								<script>
 									setTimeout(function(){
 										document.getElementById('message').style.display = 'none';
@@ -310,6 +310,7 @@
 			
 			<script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
 			<script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 			
 			<script>
 				
@@ -353,15 +354,18 @@
   			</script>
   			
   			<script type="text/javascript">
-  				$('#open_change_name').click(function(){
+  				
+  			/*	$('#open_change_name').click(function(){
   					if(document.getElementById("drop").value == "Select"){
   						alert("You must first select a category!");
 				        return false;
   					}
   					else{
-  						$('#close_edit_cat').click();
+  							$('#close_edit_cat').click();
+  						//document.getElementById("dropdown").submit();	
+  						
   					}
-  				});
+  				});*/
 
   			</script>
   			

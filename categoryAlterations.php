@@ -23,7 +23,7 @@
         
         $catID = getCategoryID($old_name);
         
-        $sql = sprintf("UPDATE categories SET categoryName = '%s' WHERE categoryID='%i';",
+        $sql = sprintf("UPDATE categories SET categoryName = '%s' WHERE categoryID='%s';",
                 $con->real_escape_string($new_name),
                 $con->real_escape_string($catID)
                 );
