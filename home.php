@@ -17,7 +17,7 @@
     
     $sql2 = sprintf("SELECT category, Format(SUM(amount),2) as total FROM transactions where userID = %d group by category order by category", $_SESSION["username"]);
     $result2 = $connection->query($sql2) or die(mysqli_error($connection));
-       while ($row2 = $result2->fetch_assoc())
+    while ($row2 = $result2->fetch_assoc())
     {
        $transactions[] = $row2["total"];
     }
@@ -153,10 +153,6 @@
 						</section>
 					</div>
 					<div class="row">
-						<section class="3u 6u(medium) 12u$(small)">
-							<h3>Questionaire</h3><p>Were you interested in taking the questionare to see how best WYZE can help you?</p>
-							<h><a href="questionare.php">YES</a></h3>
-						</section>
 						<section class="3u 6u(medium) 12u$(small)">
 							<h3>Recent Financial Articles</h3>
 							<ul class="alt">
