@@ -1,5 +1,9 @@
 <?php
     require_once("db_con.php");
+    session_start();
+    
+    $userID = $_SESSION["username"];
+    
     
     function getPlanLimit($con){
             $sql = sprintf("SELECT * FROM %s", $con->real_escape_string($table));
@@ -18,14 +22,17 @@
         return $result;
     }
     
-    function getCategoryID($cat_name, $con){
+    function getCategoryID($userID){
+        $con = connect_to_db();
+        
         $sql = sprintf("SELECT categoryID FROM categories WHERE categoryName = '%s'",
             $con->real_escape_string($cat_name)
             );
             
         $result = $con->query($sql) or die(mysqli_error($con));
         
-        $value = $result->fetch_assoc();
+        $row = $result->fetch_assoc();
+        $value = $row['categoryID'];
         
         return $value;
     }
@@ -49,22 +56,10 @@
             ); 
     
         $result = $con->query($sql) or die(mysqli_error($con));    
-        $value = $result->fetch_assoc();
+        $row = $result->fetch_assoc();
+        $value = $row['budgetID'];
         
         return $value;
-    }
-    
-    function getUserID($user){
-        $con = connect_to_db();
-        
-        $sql = sprintf("SELECT userID FROM user WHERE username = '%s'",
-            $con->real_escape_string($user)
-            );
-            
-        $result = $con->query($sql) or die(mysqli_error($con));    
-        $row = $result->fetch_assoc();
-        
-        return $row;
     }
     
     function getBudgetID($planID){
@@ -81,7 +76,6 @@
     function getCategories(){
         $con = connect_to_db();
         
-        $userID = getUserID();
         $planID = getPlanID($userID);
         $budgetIDrows = getBudgetID($planID);
         
@@ -99,8 +93,6 @@
     function getTableData(){
         $userID = getUserID();
         $planID = getPlanID($userID);
-        
-        
         
     }
 ?>
