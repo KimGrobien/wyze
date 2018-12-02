@@ -25,7 +25,7 @@
     $result3 = $connection->query($sql3) or die(mysqli_error($connection));
     while ($row3 = $result3->fetch_assoc())
     {
-       echo $defaultPlanBudget += $row3["amountTotal"];
+       echo $defaultPlanBudget = $row3["amountTotal"];
        echo $defaultPlanLimit = $row3["plan_limit"];
     }
    $percentageDefault = (100*($defaultPlanBudget / $defaultPlanLimit))+"%"  ;
