@@ -38,6 +38,7 @@ if (isset($_POST['delete'])) {
         mysqli_query($connection, "delete from plan where userID = $sessionID");
         mysqli_query($connection, "delete from transactions where userID = $sessionID");
         mysqli_query($connection, "delete from sources where userID = $sessionID");
+	header('location:logout.php');
 }
 
 ?>
