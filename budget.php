@@ -7,25 +7,39 @@
 <?php
 	require_once("insertValuesTest.php");
 	require_once("showBudgetHTML.php");
-	require_once("categoryAlterations.php");
+	require_once("dataAlterations.php");
 	
 	if(isset($_POST['catSubmit'])){
-		$message = addValues($_POST['newCatName']);
+		$message = addValues($_POST['newCatName'], $_POST['catSubmit']);
+		
 		unset($_POST['catSubmit']);
 	}
 	else if(isset($_POST['delete_cat'])){
-		$message = deleteCategory($_POST['drop']);
+		$message = deleteCategory($_POST['drop1']);
 		unset($_POST['delete_cat']);
 	}
-	else if(isset($_POST['open_change_name'])){
+	else if(isset($_POST['addPlan'])){
+		$message = addValues($_POST['planName'], $_POST['addPlan']);
+		if(isset($_POST['defaultPlan'])){
+			//change the default plan in account settings
+		}
+	//	$val1 = $_POST['addPlan'];
+		unset($_POST['addPlan']);
+	}
+	else if(isset($_POST['addBudget'])){
+		$message = addBudget($_POST['addLimit'], $_POST['drop2']);
+		//$val1 = $_POST['drop2'];
+		unset($_POST['addBudget']);
+	}
+/*	else if(isset($_POST['open_change_name'])){
 		$val1 = $_POST['drop'];
 		unset($_POST['open_change_name']);
 	}
 	else if(isset($_POST['changeNameSubmit'])){
-		/*$message = changeCategoryName($_POST['categoryName'], $_POST['editCatName']);*/
+		/*$message = changeCategoryName($_POST['categoryName'], $_POST['editCatName']);
 		$val2 = $_POST['editCatName'];
 		unset($_POST['changeNameSubmit']);
-	}
+	}*/
 	else if(isset($_POST['close'])){
 		$message = " ";
 		header("Refresh:0");
@@ -121,7 +135,7 @@
 											<form id="dropdown" method="post" action="budget.php">
 												<div id="inputs">
 													<div class="in">
-														<?php echo categoryDropdown(); ?>
+														<?php echo categoryDropdown(1); ?>
 													</div>
 												</div>
 											
@@ -166,7 +180,7 @@
 								  	</div>
 						    	</li>
 							</ul>
-							<div><?php showMessage($message); echo $val1; echo $val2; ?>
+							<div><?php showMessage($message); echo $val1; ?>
 								<script>
 									setTimeout(function(){
 										document.getElementById('message').style.display = 'none';
@@ -237,21 +251,21 @@
 										<header class="align-center">
 											<h2 class="popup">Add New Plan</h2>
 										</header>
-										<form method="post" action="">
+										<form method="post" action="budget.php">
 											<div id="inputs">
 												<div class="in">
-													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Plan Name" />
+													<input type="text" id="planName" name="planName" placeholder="Plan Name" />
 												</div>
 												<div class="in">
-													<input type="checkbox" id="demo-copy" name="demo-copy">
+													<input type="checkbox" id="defaultPlan" name="defaultPlan">
 													<label for="demo-copy">Make this my default plan</label>
 												</div>
 											</div>
+											<footer class="align-center">
+												<input type="submit" id="addPlan" name="addPlan" onclick="return errorCheck(this);" value="Add Plan">
+												<button class="plan_close">Close</button>
+											</footer>
 										</form>
-										<footer class="align-center">
-											<input type="submit" class="plan_close" value="Add Plan">
-											<button class="plan_close">Close</button>
-										</footer>
 									</section>
 							  	</div>
 					    	</li>
@@ -271,28 +285,20 @@
 										<header class="align-center">
 											<h2 class="popup">Add New Budget</h2>
 										</header>
-										<form method="post" action="">
+										<form method="post" action="budget.php">
 											<div id="inputs">
 												<div class="in">
-													<div class="select-wrapper">
-														<select name="demo-category" id="demo-category">
-															<option value="">- Category -</option>
-															<option value="1">Food and Dining</option>
-															<option value="1">Gas and Fuel</option>
-															<option value="1">Shopping</option>
-															<option value="1">Electric</option>
-														</select>
-													</div>
+													<?php echo categoryDropdown(2); ?>
 												</div>
 												<div class="in">
-													<input type="text" name="demo-name" id="demo-name" value="" placeholder="Budget Limit(in $)" />
+													<input type="text" name="addLimit" id="addLimit" placeholder="Budget Limit(in $)" />
 												</div>
 											</div>
+											<footer class="align-center">
+												<input type="submit" id="addBudget" name="addBudget" onclick="return errorCheck(this);" value="Add Budget">
+												<button class="budget_close">Close</button>
+											</footer>
 										</form>
-										<footer class="align-center">
-											<input type="submit" class="budget_close" value="Add Budget">
-											<button class="budget_close">Close</button>
-										</footer>
 									</section>
 							  	</div>
 					    	</li>
@@ -375,13 +381,23 @@
 				        alert("Complete all inputs or press cancel!");
 				        return false;
 				    }
-				    else if(document.getElementById("drop").value == "Select" && (elem.id == 'delete' || $("#open_change_name").data('clicked'))){
+				    else if(document.getElementById("drop1").value == "Select1" && elem.id == 'delete'){
 				        alert("You must first select a category!");
 				        return false;
 				    }
 				    else if(document.getElementById("editCatName").value == "" && elem.id == 'changeName'){
 				    	alert("Complete all inputs or press cancel!");
 				        return false;
+				    }
+					else if(document.getElementById("planName").value == "" && elem.id == 'addPlan'){
+				    	alert("Complete all inputs or press cancel!");
+				        return false;
+				    }
+				    else if((document.getElementById("addLimit").value == "" || 
+				    		document.getElementById("drop2").value == "Select") &&
+				    		elem.id == 'addBudget'){
+				    	alert("Complete all inputs or press cancel!");
+				    	return false;
 				    }
 				    else{
 				    	return true;
