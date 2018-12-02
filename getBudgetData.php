@@ -25,8 +25,8 @@
     function getCategoryID($userID){
         $con = connect_to_db();
         
-        $sql = sprintf("SELECT categoryID FROM categories WHERE categoryName = '%s'",
-            $con->real_escape_string($cat_name)
+        $sql = sprintf("SELECT categoryID FROM categories WHERE userID = '%s'",
+            $con->real_escape_string($userID)
             );
             
         $result = $con->query($sql) or die(mysqli_error($con));
@@ -44,7 +44,9 @@
             
         $result = $con->query($sql) or die(mysqli_error($con));
         
-        $value = $result->fetch_assoc();
+        $row = $result->fetch_assoc();
+        
+        $value = $row['planID'];
         
         return $value;
     }
@@ -58,6 +60,7 @@
         $result = $con->query($sql) or die(mysqli_error($con));    
         $row = $result->fetch_assoc();
         $value = $row['budgetID'];
+        
         
         return $value;
     }
@@ -78,10 +81,52 @@
         
         $planID = getPlanID($userID);
         $budgetIDrows = getBudgetID($planID);
+        $i = 0;
         
-        foreach($budgetIDrows as $keys => $value){
+        
+        foreach($budgetIDrows as $key => $value){
             //cycle through the rows of budget IDs and get the category IDs
+                $sql = sprintf("SELECT categoryID FROM categories WHERE budgetID = '%s'",
+                $con->real_escape_string($value)
+                ); 
+                
+                $result = $con->query($sql) or die(mysqli_error($con));
+                
+                $row = $result->fetch_assoc();
+                $value = $result['categoryID'];
+                
+                $catIDarr[$i] = $value;
+                $i += 1;
         }
+        
+        return $catIDarr;
+    }
+    
+    function getTransactionTotals($catIDs){
+        
+        $i = 0;
+        foreach($catIDs as $val){
+            $sql = sprintf("SELECT amount FROM transactions WHERE categoryID = '%s'",
+                $con->real_escape_string($val)
+                );
+                
+            $result = $con->query($sql) or die(mysqli_error($con));
+            $rows = $result->fetch_assoc();
+            
+            foreach($rows as $key => $value){
+                $val += $value['amount'];
+            }
+            
+            $totalAmountArr[$i] = $val;
+            
+            $val = 0;
+        }
+        
+        foreach($catID as $id){
+            
+        }
+        
+        return
     }
     
     function getBudgets(){
