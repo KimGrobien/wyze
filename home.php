@@ -1,6 +1,6 @@
 <?php
 	session_start();
-
+	require_once("getBudgetData.php");
     //using session
 	require_once("db_con.php");
 	$connection = connect_to_db();
@@ -21,7 +21,7 @@
        $transactions[] = $row2["total"];
     }
     //add all budgets out of PlanLimit
-    $sql3 = sprintf("Select SUM(t.amount) from transactions t where %s = t.categoryID and t.userID = %d", $_SESSION["username"],$_SESSION["username"]);
+    $sql3 = sprintf("Select SUM(t.amount) from transactions t where  t.categoryID= %d AND t.userID = %d", getCategoryID($_SESSION["username"]),$_SESSION["username"]);
     $result3 = $connection->query($sql3) or die(mysqli_error($connection));
     while ($row3 = $result3->fetch_assoc())
     {
