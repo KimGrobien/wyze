@@ -103,30 +103,33 @@
     }
     
     function getTransactionTotals($catIDs){
+        $catIDs = getCategories();
         
         $i = 0;
         foreach($catIDs as $val){
-            $sql = sprintf("SELECT amount FROM transactions WHERE categoryID = '%s'",
+            $sql = sprintf("SELECT categoryName as cName, aSum FROM categories as c RIGHT JOIN (SELECT categoryID, FORMAT(SUM(amount), 2) as aSum FROM transactions WHERE categoryID = '%s' AND userID='%s') as a ON c.categoryID = a.categoryID",
+                $con->real_escape_string($userID),
                 $con->real_escape_string($val)
                 );
                 
             $result = $con->query($sql) or die(mysqli_error($con));
             $rows = $result->fetch_assoc();
             
-            foreach($rows as $key => $value){
-                $val += $value['amount'];
-            }
-            
-            $totalAmountArr[$i] = $val;
+            $amountArr[$i] = $rows;
             
             $val = 0;
         }
         
-        foreach($catID as $id){
-            
-        }
+        return $amountArr;
+    }
+    
+    function getTotal(){
+        $aArr = getTransactionTotals();
         
-        return
+        foreach($aArr as $val){
+            $value += $val['aSum'];
+        }
+        return $value;
     }
     
     function getBudgets(){
