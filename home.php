@@ -21,13 +21,22 @@
        $transactions[] = $row2["total"];
     }
     //add all budgets out of PlanLimit
-    $sql3 = sprintf("Select Format(SUM(t.amount),2) as amountTotal, Format(SUM(b.budgetLimit),2) as plan_limit from transactions t, budget b where t.categoryID= %d AND t.userID = %d", getCategoryID($_SESSION["username"]),$_SESSION["username"]);
+    $sql3 = sprintf("select format(sum(amount),2) as amountTotal from transactions where categoryID in (select categoryID from categories where budgetID in (select budgetID from budget where planID = (select planID from accountsettings where userID = %d)))", $_SESSION["username"]);
+    
     $result3 = $connection->query($sql3) or die(mysqli_error($connection));
     while ($row3 = $result3->fetch_assoc())
     {
-       echo $defaultPlanBudget += $row3["amountTotal"];
-       echo $defaultPlanLimit = $row3["plan_limit"];
+       $defaultPlanBudget = $row3["amountTotal"];
     }
+    $sql4 = sprintf("select format(sum(budgetLimit),2) as planLimit from budget where planID = (select planID from accountsettings where userID = %d)", $_SESSION["username"]);
+    
+    $result4 = $connection->query($sql4) or die(mysqli_error($connection));
+    while ($row4 = $result4->fetch_assoc())
+    {
+       $defaultPlanLimit = $row4["planLimit"];
+    }
+    
+    
    $percentageDefault = (100*($defaultPlanBudget / $defaultPlanLimit))+"%"  ;
 ?>
 <html>
@@ -79,7 +88,7 @@
 					</div>
 					<script>
 						var budgetPercentage = <?php echo json_encode($percentageDefault); ?>;
-						var budgetText = '<?php echo "$";echo json_encode($defaultPlanBudget); echo "out of $" ;echo json_encode($defaultPlanLimit);?>';
+						var budgetText = '<?php echo ("$" . $defaultPlanBudget . " out of $" . $defaultPlanLimit)?>';
 						document.getElementById("defaultBudget").innerHTML = budgetText;
 						document.getElementById("defaultBudget").style.width = budgetPercentage+"%";
 			

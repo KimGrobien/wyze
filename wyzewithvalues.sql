@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2018 at 09:22 PM
+-- Generation Time: Dec 02, 2018 at 10:10 PM
 -- Server version: 5.5.57-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.22
 
@@ -34,6 +34,13 @@ CREATE TABLE IF NOT EXISTS `accountsettings` (
   UNIQUE KEY `planID` (`planID`),
   UNIQUE KEY `userID` (`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `accountsettings`
+--
+
+INSERT INTO `accountsettings` (`planID`, `accountName`, `userID`) VALUES
+(4, 'test', 1);
 
 -- --------------------------------------------------------
 
@@ -146,14 +153,14 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `categoryID` int(11) DEFAULT NULL,
   PRIMARY KEY (`transactionID`),
   KEY `categoryID` (`categoryID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `transactions`
 --
 
 INSERT INTO `transactions` (`userID`, `transactionID`, `date`, `description`, `source`, `amount`, `categoryID`) VALUES
-(1, 9, '09/22/18', 'Chick-fil-A', 'cash', 7.5, 4),
+(1, 9, '09/22/18', 'Chick-fil-A', 'debit', 7.5, 4),
 (1, 10, '09/12/18', 'Marathon', 'credit', 27.15, 3),
 (1, 12, '10/03/18', 'Kroger', 'cash', 12.99, 31);
 

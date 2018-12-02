@@ -126,10 +126,14 @@
     function getTotal(){
         $aArr = getTransactionTotals();
         
+<<<<<<< HEAD
         foreach($aArr as $val){
             $value += $val['aSum'];
         }
         return $value;
+=======
+        return;
+>>>>>>> 60d0b843863d93f28459ca9b2dade96b4d1aa4b2
     }
     
     function getBudgets(){
