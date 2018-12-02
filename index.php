@@ -55,6 +55,7 @@
                     $connection = connect_to_db();
               
                     $sql = sprintf("Select 1 FROM users WHERE username = '%s' AND password = password('%s')",
+                   // $sql = sprintf("Select * FROM users WHERE username = '%s' AND password = password('%s') LIMIT 1",
                     $connection->real_escape_string($_POST["loginusr"]),
                     $connection->real_escape_string($_POST["loginpass"]));
                     echo "$sql";

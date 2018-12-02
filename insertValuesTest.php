@@ -1,10 +1,16 @@
 <?php
-    require_once("categoryAlterations.php");
+    require_once("dataAlterations.php");
     require_once("db_con.php");
     
-    function addValues($cat_name){
+    function addValues($name, $sub_type){
         $connection = connect_to_db();
-        $message = addCategory("categories", $cat_name, $connection);
+        
+        if($sub_type == "Add Category"){
+            $message = addCategory("categories", $name, $connection);
+        }
+        else if($sub_type == "Add Plan"){
+            $message = addPlan("plan", $name, $connection);
+        }
         
         return $message;
     }

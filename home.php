@@ -40,7 +40,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
 		<script type="text/javascript">
-  			<?php ?>
 			var transactions = <?php echo json_encode($transactions); ?>;
 			var categoryNames = <?php echo json_encode($categories); ?>;
 				
