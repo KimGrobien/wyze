@@ -30,21 +30,14 @@ if (isset($_POST['personalSave'])) {
  }
 }
 
-if (isset($_POST['addAccount'])) { 
- if (isset($_POST['newType']) && isset($_POST['newAccName']) && isset($_POST['newBudget']) && isset($_POST['newLimit'])) {
-   $accountType = $_POST['newType']; $accountName = $_POST['newAccName']; $budget = $_POST['newBudget']; $limit = $_POST['newLimit'];
-   mysqli_query($connection, "insert into accountsettings(userID, accountName) values ($sessionID, '$accountName')");
-   mysqli_query($connection, "insert into plan(userID, categoryID, budget, plan_limit) values ('$sessionID', '$accountType', '$budget', '$limit')");
-   if (isset($_POST['newDefault'])) {
-     mysqli_query($connection, "insert into plan(default_plan) values (1) where userID = $sessionID");
-  }
-}
-}
-
-
-if (isset($_POST['deleteAcct'])) {
-  mysqli_query($connection, "delete from plan where userID = $sessionID");
-  mysqli_query($connection, "delete from accountsettings where userID = $sessionID");
+if (isset($_POST['delete'])) {
+        mysqli_query($connection, "delete from users where id = $sessionID");
+        mysqli_query($connection, "delete from accountsettings where userID = $sessionID");
+        mysqli_query($connection, "delete from budget where userID = $sessionID");
+        mysqli_query($connection, "delete from categories where userID = $sessionID");
+        mysqli_query($connection, "delete from plan where userID = $sessionID");
+        mysqli_query($connection, "delete from transactions where userID = $sessionID");
+        mysqli_query($connection, "delete from sources where userID = $sessionID");
 }
 
 ?>
@@ -119,20 +112,8 @@ if (isset($_POST['deleteAcct'])) {
                <input name="personalSave" type="submit" value="Save changes" class="button special">
             </div>
             <div class="4u$ 12u$(medium)">
-               <h3>Add a new account</h3>
-               <select name="newType">
-                  <option value="">- Account Type -</option>
-                  <option value="1"><?php echoSQL($connection, "select categoryName from categories where categoryID = 1", "categoryName");?></option>
-                  <option value="2"><?php echoSQL($connection, "select categoryName from categories where categoryID = 2", "categoryName");?></option>
-                  <option value="3"><?php echoSQL($connection, "select categoryName from categories where categoryID = 3", "categoryName");?></option>
-                  <option value="4"><?php echoSQL($connection, "select categoryName from categories where categoryID = 4", "categoryName");?></option>
-               </select>
-               <br />
-               <input name="newAccName" placeholder="Account name" type="text"><br />
-               <input name="newBudget" placeholder="Budget" type="text"><br />
-               <input name="newLimit" placeholder="Budget limit" type="text"><br />
-               <input name="newDefault" id="newDefault" type="checkbox"><label for="newDefault">Default account</label><br />
-               <input type="submit" name="addAccount" value="Add account" class="button special">
+               <h3>Account Deletion</h3>
+		<input name="delete" type="submit" value="Delete account" class="button special">
             </div>
          </div>
       </div>
