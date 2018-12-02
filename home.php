@@ -21,12 +21,12 @@
        $transactions[] = $row2["total"];
     }
     //add all budgets out of PlanLimit
-    $sql3 = sprintf("Select SUM(t.amount) from transactions t where  t.categoryID= %d AND t.userID = %d", getCategoryID($_SESSION["username"]),$_SESSION["username"]);
+    $sql3 = sprintf("Select Format(SUM(t.amount),2) as amountTotal, Format(SUM(b.budgetLimit),2) as plan_limit from transactions t, budget b where t.categoryID= %d AND t.userID = %d", getCategoryID($_SESSION["username"]),$_SESSION["username"]);
     $result3 = $connection->query($sql3) or die(mysqli_error($connection));
     while ($row3 = $result3->fetch_assoc())
     {
-       $defaultPlanBudget += $row3["budget"];
-       $defaultPlanLimit = $row3["plan_limit"];
+       echo $defaultPlanBudget += $row3["amountTotal"];
+       echo $defaultPlanLimit = $row3["plan_limit"];
     }
    $percentageDefault = (100*($defaultPlanBudget / $defaultPlanLimit))+"%"  ;
 ?>
