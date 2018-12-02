@@ -1,8 +1,7 @@
 <?php
 	session_start();
-
+	require_once("getBudgetData.php");
     //using session
-    $_SESSION["user_id"] = $user_id;
 	require_once("db_con.php");
 	$connection = connect_to_db();
 
@@ -15,18 +14,19 @@
        $categories[] = $row["categoryName"];
     }
     
-    $sql2 = sprintf("SELECT category, Format(SUM(amount),2) as total FROM transactions where userID = %d group by category order by category", $_SESSION["username"]);
+    $sql2 = sprintf("SELECT categoryID, Format(SUM(amount),2) as total FROM transactions where userID = %d group by categoryID order by categoryID", $_SESSION["username"]);
     $result2 = $connection->query($sql2) or die(mysqli_error($connection));
-       while ($row2 = $result2->fetch_assoc())
+    while ($row2 = $result2->fetch_assoc())
     {
        $transactions[] = $row2["total"];
     }
-    $sql3 = sprintf("Select P.budget, P.plan_limit, P.default_plan, P.planID, ASe.planID, P.userid FROM plan P, accountsettings ASe WHERE (P.userID = %d AND ASe.userID = %d) AND P.planID = ASe.planID;", $_SESSION["username"],$_SESSION["username"]);
+    //add all budgets out of PlanLimit
+    $sql3 = sprintf("Select Format(SUM(t.amount),2) as amountTotal, Format(SUM(b.budgetLimit),2) as plan_limit from transactions t, budget b where t.categoryID= %d AND t.userID = %d", getCategoryID($_SESSION["username"]),$_SESSION["username"]);
     $result3 = $connection->query($sql3) or die(mysqli_error($connection));
     while ($row3 = $result3->fetch_assoc())
     {
-       $defaultPlanBudget = $row3["budget"];
-       $defaultPlanLimit = $row3["plan_limit"];
+       echo $defaultPlanBudget += $row3["amountTotal"];
+       echo $defaultPlanLimit = $row3["plan_limit"];
     }
    $percentageDefault = (100*($defaultPlanBudget / $defaultPlanLimit))+"%"  ;
 ?>
@@ -152,10 +152,6 @@
 						</section>
 					</div>
 					<div class="row">
-						<section class="3u 6u(medium) 12u$(small)">
-							<h3>Questionaire</h3><p>Were you interested in taking the questionare to see how best WYZE can help you?</p>
-							<h><a href="questionare.php">YES</a></h3>
-						</section>
 						<section class="3u 6u(medium) 12u$(small)">
 							<h3>Recent Financial Articles</h3>
 							<ul class="alt">
