@@ -2,7 +2,6 @@
 	session_start();
 
     //using session
-    $_SESSION["user_id"] = $user_id;
 	require_once("db_con.php");
 	$connection = connect_to_db();
 
@@ -15,17 +14,18 @@
        $categories[] = $row["categoryName"];
     }
     
-    $sql2 = sprintf("SELECT category, Format(SUM(amount),2) as total FROM transactions where userID = %d group by category order by category", $_SESSION["username"]);
+    $sql2 = sprintf("SELECT categoryID, Format(SUM(amount),2) as total FROM transactions where userID = %d group by categoryID order by categoryID", $_SESSION["username"]);
     $result2 = $connection->query($sql2) or die(mysqli_error($connection));
     while ($row2 = $result2->fetch_assoc())
     {
        $transactions[] = $row2["total"];
     }
-    $sql3 = sprintf("Select P.budget, P.plan_limit, P.default_plan, P.planID, ASe.planID, P.userid FROM plan P, accountsettings ASe WHERE (P.userID = %d AND ASe.userID = %d) AND P.planID = ASe.planID;", $_SESSION["username"],$_SESSION["username"]);
+    //add all budgets out of PlanLimit
+    $sql3 = sprintf("Select SUM(t.amount) from transactions t where %s = t.categoryID and t.userID = %d", $_SESSION["username"],$_SESSION["username"]);
     $result3 = $connection->query($sql3) or die(mysqli_error($connection));
     while ($row3 = $result3->fetch_assoc())
     {
-       $defaultPlanBudget = $row3["budget"];
+       $defaultPlanBudget += $row3["budget"];
        $defaultPlanLimit = $row3["plan_limit"];
     }
    $percentageDefault = (100*($defaultPlanBudget / $defaultPlanLimit))+"%"  ;
