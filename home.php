@@ -1,6 +1,5 @@
 <?php
 	session_start();
-	require_once("getBudgetData.php");
     //using session
 	require_once("db_con.php");
 	$connection = connect_to_db();
