@@ -1,47 +1,67 @@
 <?php
     require_once("getBudgetData.php");
     
-    function showTable($results){
+    function showTable(){
     
 		$table = "<table class='alt2'>\n";
 		$table .= "<tbody>\n" . "<tr>\n" . "<td class= 'tot'><strong>Total</strong></td>\n";
 		$table .= "<td>\n" . "<div class='progress'>\n";
 		
-		$totalLimit = "";
-		$totalSpent = "";
+		$totalLimit = getPlanLimit();
+		echo $totalLimit . "\n";
+		$totalSpent = getTotal();
+		echo $totalSpent . "\n";
 		$totalProgress = floatval(($totalSpent / $totalLimit) * 100);
+		echo $totalProgress . "\n";
 		$totalProgressformatted = number_format($totalProgress);
+		echo $totalProgressformatted . "\n";
+		
 		
 		setlocale(LC_MONETARY,"en_US.UTF-8");
-        
 		
 		$totalSpentStr = money_format("%n", $totalSpent);
+		echo $totalSpentStr . "\n";
 		
 		$table .= "<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='" . $totalProgressformatted;
-		$table .= "' aria-valuemin='0' aria-valuemax='100' style='width: " . $totalProgressformatted . "%'>%n" . money_format($table, $totalSpent);
-		$table .= " of " . money_format("%n", $totalLimit); 
-		$table .= "</div>";
+		$table .= "' aria-valuemin='0' aria-valuemax='100' style='width: " . $totalProgressformatted . "%'>$" . $totalSpent;
+		$table .= " of $" . $totalLimit; 
+		$table .= "</div>\n </div>\n </td>\n </tr>";
 		
-		foreach($rows as $key=>$value){
-		    
-		}
-		
+		$budgetsArr = getBudgets();
+	
+        for($i = 0; $i < (count($budgetsArr) - 1); $i++){
+    		while($row = $budgetsArr[$i]->fetch_assoc()){
+                
+                $value = $row['cName'];
+                $value2 = $row['aSum'];
+                $value3 = $row['budgetLimit'];
+                //echo $value . "\n";
+              //  echo $value2 . "\n";
+              //  echo $value3 . "\n";
+                
+                //foreach($row as $key => $value){
+                   // echo $value . "\n";
+                    $table .= "<tr>\n" . "<td class='catName'><a href='#'><span class='glyphicon glyphicon-edit'></span></a>" . $value . "</td>\n" . "<td>";
+                    $table .= "<div class='progress'>\n";
+                    $table .= "<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='" . 45 . "' aria-valuemin='0' aria-valuemax='100' style='width: " . 45 . "%'>$" . $value2 . " of $" . $value3 . "</div>\n";
+                    $table .= "</div>\n" . "</td>\n" . "</tr>\n";    
+                    
+                //}
+            }
+        }
+        
+        $table .= "</tbody>\n" . "</table>\n";
+        
+		echo $table;
     }
-					
 		/*			
 					   	
                           
-                      	</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="catName"><a href="#"> <span class="glyphicon glyphicon-edit"></span></a>Food and Dining</td>
-					<td>
-				        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">$100 of $250</div>
-                        </div>
-					</td>
-				</tr>
+                      
+				
+				        
+					
+				
 				<tr>
 					<td class="catName"><a href="#"> <span class="glyphicon glyphicon-edit"></span></a>Gas and Fuel</td>
 					<td>

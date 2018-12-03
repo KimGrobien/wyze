@@ -38,6 +38,8 @@
         return $result;
     }
     
+    
+    
     function addCategory($table, $cat_name, $con){
        
         $sql = sprintf("INSERT INTO %s (categoryName) VALUES ('%s')", 
