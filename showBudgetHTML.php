@@ -1,47 +1,58 @@
 <?php
     require_once("getBudgetData.php");
     
-    function showTable($results){
+    function showTable(){
     
 		$table = "<table class='alt2'>\n";
 		$table .= "<tbody>\n" . "<tr>\n" . "<td class= 'tot'><strong>Total</strong></td>\n";
 		$table .= "<td>\n" . "<div class='progress'>\n";
 		
-		$totalLimit = "";
-		$totalSpent = "";
+		$totalLimit = getPlanLimit();
+		$totalSpent = getTotal();
 		$totalProgress = floatval(($totalSpent / $totalLimit) * 100);
 		$totalProgressformatted = number_format($totalProgress);
 		
 		setlocale(LC_MONETARY,"en_US.UTF-8");
-        
 		
 		$totalSpentStr = money_format("%n", $totalSpent);
 		
 		$table .= "<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='" . $totalProgressformatted;
 		$table .= "' aria-valuemin='0' aria-valuemax='100' style='width: " . $totalProgressformatted . "%'>%n" . money_format($table, $totalSpent);
 		$table .= " of " . money_format("%n", $totalLimit); 
-		$table .= "</div>";
+		$table .= "</div>\n </div>\n </td>\n </tr>";
 		
-		foreach($rows as $key=>$value){
-		    
-		}
-		
+		$budgetsArr = getBudgets();
+	
+        $i =0;
+        //for($i = 0; $i < count($budgetsArr); $i++){
+    		while($row = $budgetsArr[$i]->fetch_assoc()){
+                
+                $value = $row['catName'];
+                echo $value . "\n";
+                
+                /*foreach($row as $key => $value){
+                   // echo $value . "\n";
+                    $table .= "<tr>\n" . "<td class='catName'><a href='#'><span class='glyphicon glyphicon-edit'></span></a>" . $value . "</td>\n" . "<td>";
+                    $table .= "<div class='progress'>\n";
+                    $table .= "<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='" . 45 . "' aria-valuemin='0' aria-valuemax='100' style='width: " . 45 . "%'>$" . $value . " of $" . $value . "</div>\n";
+                    $table .= "</div>\n" . "</td>\n" . "</tr>\n";    
+                    
+                }*/
+            }
+       // }
+        
+        $table .= "</tbody>\n" . "</table>\n";
+        
+		//echo $table;
     }
-					
 		/*			
 					   	
                           
-                      	</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="catName"><a href="#"> <span class="glyphicon glyphicon-edit"></span></a>Food and Dining</td>
-					<td>
-				        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">$100 of $250</div>
-                        </div>
-					</td>
-				</tr>
+                      
+				
+				        
+					
+				
 				<tr>
 					<td class="catName"><a href="#"> <span class="glyphicon glyphicon-edit"></span></a>Gas and Fuel</td>
 					<td>

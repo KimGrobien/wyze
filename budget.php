@@ -8,6 +8,9 @@
 	require_once("insertValuesTest.php");
 	require_once("showBudgetHTML.php");
 	require_once("dataAlterations.php");
+	session_start();
+	
+	$uID = $_SESSION['username'];
 	
 	if(isset($_POST['catSubmit'])){
 		$message = addValues($_POST['newCatName'], $_POST['catSubmit']);
@@ -180,7 +183,8 @@
 								  	</div>
 						    	</li>
 							</ul>
-							<div><?php showMessage($message); echo $val1; ?>
+							<div><?php //showMessage($message);// echo $val1; 
+							//showTable(); ?>
 								<script>
 									setTimeout(function(){
 										document.getElementById('message').style.display = 'none';
@@ -189,7 +193,10 @@
 							</div>
 					</header>
 					<div class="table-wrapper">
-						<table class="alt2">
+						<?php
+							showTable();
+						?>
+						<!--<table class="alt2">
 							<tbody>
 								<tr>
 									<td class= "tot"><strong>Total</strong></td>
@@ -232,7 +239,7 @@
                                     </td>
 								</tr>
 							</tbody>
-						</table>
+						</table>-->
 					</div>
 					<footer class="align-center">
 					    <ul class="actions">
