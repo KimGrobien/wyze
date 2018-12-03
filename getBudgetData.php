@@ -91,12 +91,13 @@
                 $i = 0;
                 while($r = $res->fetch_assoc()){
                     foreach($r as $k => $v){
-                       $idArr[$i] = $v; 
+                       $idArr[$i] = $v;
+                       $i += 1;
                     }
                 }
             }
           }
-        return $res;
+        return $idArr;
     }
     
     function getPlanLimit(){

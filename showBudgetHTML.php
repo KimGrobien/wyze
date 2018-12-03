@@ -46,7 +46,7 @@
                    // echo $value . "\n";
                     $table .= "<tr>\n" . "<td class='catName'><a href='#'><span class='glyphicon glyphicon-edit'></span></a>" . $name . "</td>\n" . "<td>";
                     $table .= "<div class='progress'>\n";
-                    $table .= "<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='" . $spentProgress . "' aria-valuemin='0' aria-valuemax='100' style='width: " . $spentProgress . "%'>$" . $sum . " of $" . $limit . "</div>\n";
+                    $table .= "<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='" . $spentProgress . "' aria-valuemin='0' aria-valuemax='100' style='width: " . $spentProgress . "%'>$" . $spent . " of $" . $limit . "</div>\n";
                     $table .= "</div>\n" . "</td>\n" . "</tr>\n";    
                     
                 //}
