@@ -214,7 +214,7 @@
         
         $i = 0;
         //echo count($budgetsArr);
-        while($row = $budgetsArr[$i]->fetch_assoc()){
+       /* while($row = $budgetsArr[$i]->fetch_assoc()){
             
             //$value = $row['budgetLimit'];
             echo $value . "\n";
@@ -222,7 +222,7 @@
             foreach($row as $key => $value){
                 echo $value . "\n";
             }
-        }
+        }*/
         
         
         return $budgetsArr;

@@ -14,7 +14,6 @@
 	
 	if(isset($_POST['catSubmit'])){
 		$message = addValues($_POST['newCatName'], $_POST['catSubmit']);
-		
 		unset($_POST['catSubmit']);
 	}
 	else if(isset($_POST['delete_cat'])){
@@ -65,7 +64,7 @@
 		<link rel="stylesheet" href="assets/css/main.css"/>
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="assets/css/budget.css"/>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 
 	</head>
 	<body class="subpage">
@@ -183,8 +182,7 @@
 								  	</div>
 						    	</li>
 							</ul>
-							<div><?php //showMessage($message);// echo $val1; 
-							//showTable(); ?>
+							<div><?php showMessage($message); ?>
 								<script>
 									setTimeout(function(){
 										document.getElementById('message').style.display = 'none';
@@ -196,50 +194,6 @@
 						<?php
 							showTable();
 						?>
-						<!--<table class="alt2">
-							<tbody>
-								<tr>
-									<td class= "tot"><strong>Total</strong></td>
-									<td>
-									   	<div class="progress">
-	                                      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%">$300 of $600</div>
-	                                  	</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="catName"><a href="#"> <span class="glyphicon glyphicon-edit"></span></a>Food and Dining</td>
-									<td>
-								        <div class="progress">
-	                                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">$100 of $250</div>
-	                                    </div>
-									</td>
-								</tr>
-								<tr>
-									<td class="catName"><a href="#"> <span class="glyphicon glyphicon-edit"></span></a>Gas and Fuel</td>
-									<td>
-									    <div class="progress">
-                                          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%">$30 of $100</div>
-                                        </div>
-									</td>
-								</tr>
-								<tr>
-									<td class="catName"><a href="#"> <span class="glyphicon glyphicon-edit"></span></a>Shopping</td>
-									<td>
-									    <div class="progress">
-                                          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 25%">$20 of $100</div>
-                                        </div>
-									</td>
-								</tr>
-								<tr>
-									<td class="catName"><a href="#"><span class="glyphicon glyphicon-edit"></span></a>Electric</td>
-									<td>
-									    <div class="progress">
-                                          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">$150 of $150</div>
-                                        </div>
-                                    </td>
-								</tr>
-							</tbody>
-						</table>-->
 					</div>
 					<footer class="align-center">
 					    <ul class="actions">
@@ -276,7 +230,6 @@
 									</section>
 							  	</div>
 					    	</li>
-					    	
 					    	<li><button class="budget_open">Add Budget</button>
 					    		<div id="budget">
 					    			<head>
@@ -326,7 +279,6 @@
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 			
 			<script>
-				
     			$(document).ready(function() {
 			      // Initialize the plugin
 			      $('#plan').popup({
