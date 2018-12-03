@@ -1,8 +1,8 @@
 <?php
 	session_start();
-	require_once("getBudgetData.php");
     //using session
 	require_once("db_con.php");
+	require_once("header.php");
 	$connection = connect_to_db();
 
     //MAKE ALL SQL STATEMENTS DEPENDPENT ON UNIQUE USERID
@@ -57,18 +57,7 @@
   		</script>
 	</head>
 	<body class="subpage">
-		<header id="header">
-	      <div class="inner">
-	        <a href="home.php" class="logo"><strong>Wyze</strong></a>
-	        <nav id="nav">
-	          <a href="home.php">Home</a>
-	          <a href="transactions.php">Transactions</a>
-	          <a href="budget.php">Budget</a>
-	          <a href="account.php">My Account</a>
-	        </nav>
-	        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-	      </div>
-		</header>
+		<?php setHeader(); ?>
 		<section id="main" class="wrapper">
 			<div class="inner">
 				<header class="align-center">
