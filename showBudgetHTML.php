@@ -8,19 +8,19 @@
 		$table .= "<td>\n" . "<div class='progress'>\n";
 		
 		$totalLimit = getPlanLimit();
-		echo $totalLimit . "\n";
+	//	echo $totalLimit . "\n";
 		$totalSpent = getTotal();
-		echo $totalSpent . "\n";
+	//	echo $totalSpent . "\n";
 		$totalProgress = floatval(($totalSpent / $totalLimit) * 100);
-		echo $totalProgress . "\n";
+	//	echo $totalProgress . "\n";
 		$totalProgressformatted = number_format($totalProgress);
-		echo $totalProgressformatted . "\n";
+	//	echo $totalProgressformatted . "\n";
 		
 		
 		setlocale(LC_MONETARY,"en_US.UTF-8");
 		
 		$totalSpentStr = money_format("%n", $totalSpent);
-		echo $totalSpentStr . "\n";
+	//	echo $totalSpentStr . "\n";
 		
 		$table .= "<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='" . $totalProgressformatted;
 		$table .= "' aria-valuemin='0' aria-valuemax='100' style='width: " . $totalProgressformatted . "%'>$" . $totalSpent;
@@ -32,18 +32,21 @@
         for($i = 0; $i < (count($budgetsArr) - 1); $i++){
     		while($row = $budgetsArr[$i]->fetch_assoc()){
                 
-                $value = $row['cName'];
-                $value2 = $row['aSum'];
-                $value3 = $row['budgetLimit'];
+                $name = $row['cName'];
+                $spent = $row['aSum'];
+                $limit = $row['budgetLimit'];
+                
+                $spentProgress = floatval(($spent / $limit) * 100);
+                
                 //echo $value . "\n";
               //  echo $value2 . "\n";
               //  echo $value3 . "\n";
                 
                 //foreach($row as $key => $value){
                    // echo $value . "\n";
-                    $table .= "<tr>\n" . "<td class='catName'><a href='#'><span class='glyphicon glyphicon-edit'></span></a>" . $value . "</td>\n" . "<td>";
+                    $table .= "<tr>\n" . "<td class='catName'><a href='#'><span class='glyphicon glyphicon-edit'></span></a>" . $name . "</td>\n" . "<td>";
                     $table .= "<div class='progress'>\n";
-                    $table .= "<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='" . 45 . "' aria-valuemin='0' aria-valuemax='100' style='width: " . 45 . "%'>$" . $value2 . " of $" . $value3 . "</div>\n";
+                    $table .= "<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='" . $spentProgress . "' aria-valuemin='0' aria-valuemax='100' style='width: " . $spentProgress . "%'>$" . $sum . " of $" . $limit . "</div>\n";
                     $table .= "</div>\n" . "</td>\n" . "</tr>\n";    
                     
                 //}
