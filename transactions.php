@@ -1,6 +1,7 @@
 <?php
 	require_once('db_con.php');
 	require_once('transactions_operations.php');
+	require_once('header.php');
     session_start();
     $connection = connect_to_db();
     
@@ -91,19 +92,7 @@
 	        	<br><br>
 	      	</div>
 		</div>
-		<header id="header">
-	      <div class="inner">
-	        <a href="home.php" class="logo"><strong>Wyze</strong></a>
-	        <nav id="nav">
-	          <a href="home.php">Home</a>
-	          <a href="transactions.php">Transactions</a>
-	          <a href="budget.php">Budget</a>
-	          <a href="account.php">My Account</a>
-	          <a href="logout.php">Log out</a> 
-	        </nav>
-	        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-	      </div>
-		</header>
+		<?php setHeader();?>
 		<div id="addOptions">
 			<div id="importDiv">
 				<h3>Import Transactions</h3>

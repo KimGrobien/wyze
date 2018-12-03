@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2018 at 10:10 PM
+-- Generation Time: Dec 03, 2018 at 06:07 AM
 -- Server version: 5.5.57-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.22
 
@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `fname`, `lname`, `email`, `numPhone`) VALUES
-(1, 'admin', '*4ACFE3202A5FF5CF467898FC58AAB1D615029441', '', '', '', NULL),
+(1, 'admin', '*4ACFE3202A5FF5CF467898FC58AAB1D615029441', 'Jacob', 'Chen', 'chenz@pfw.edu', NULL),
 (2, 'tester', 'great', 'John', 'Doe', 'email@email.com', '2602602602'),
 (3, 'as', '*82F7A212F409F2D39676231F9599E077C10214C9', 'as', 'as', 'as@as.edu', ''),
 (4, 'Austin06', '*94BDCEBE19083CE2A1F959FD02F964C7AF4CFC29', 'Austin', 'Anderson', 'austinalananderson03@gmail.com', '');

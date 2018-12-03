@@ -8,6 +8,7 @@
 	require_once("insertValuesTest.php");
 	require_once("showBudgetHTML.php");
 	require_once("dataAlterations.php");
+	require_once("header.php");
 	session_start();
 	
 	$uID = $_SESSION['username'];
@@ -70,18 +71,7 @@
 	<body class="subpage">
 
 		<!-- Header -->
-			<header id="header">
-			    <div class="inner">
-                    <a href="home.php" class="logo"><strong>WYZE</strong></a>
-                    <nav id="nav">
-                        <a href="home.php">Home</a>
-                        <a href="transactions.php">Transactions</a>
-                        <a href="budget.php">Budget</a>
-                        <a href="account.php">My Account</a>
-                    </nav>
-                    <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-                </div>
-			</header>
+			<?php setHeader();?>
 
 		<!-- Main -->
 			<section id="main" class="wrapper">
