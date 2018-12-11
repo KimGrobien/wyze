@@ -2,11 +2,10 @@
 	session_start();
     //using session
 	require_once("db_con.php");
-	require_once("header.php");
 	$connection = connect_to_db();
 
     //MAKE ALL SQL STATEMENTS DEPENDPENT ON UNIQUE USERID
-    $sql = sprintf("SELECT C.categoryName FROM categories C where userID = %d group by categoryName order by categoryName ", $_SESSION["username"]);
+    $sql = sprintf("SELECT C.categoryName FROM categories C where userID = %d", $_SESSION["username"]);
     $result = $connection->query($sql) or die(mysqli_error($connection));
     //get array of catagory names
     while ($row = $result->fetch_assoc())
@@ -14,19 +13,21 @@
        $categories[] = $row["categoryName"];
     }
     
-    $sql2 = sprintf("SELECT categoryID, Format(SUM(amount),2) as total FROM transactions where userID = %d group by categoryID order by categoryID", $_SESSION["username"]);
+    $sql2 = sprintf("SELECT categoryID, Format(SUM(amount),2) as total FROM transactions where userID = %d group by categoryID", $_SESSION["username"]);
     $result2 = $connection->query($sql2) or die(mysqli_error($connection));
     while ($row2 = $result2->fetch_assoc())
     {
        $transactions[] = $row2["total"];
     }
     //add all budgets out of PlanLimit
-    $sql3 = sprintf("select format(sum(amount),2) as amountTotal from transactions where categoryID in (select categoryID from categories where budgetID in (select budgetID from budget where planID = (select planID from accountsettings where userID = %d))) order by categoryID", $_SESSION["username"]);
+    $sql3 = sprintf("select format(sum(amount),2) as amountTotal, categoryID from transactions where categoryID in (select categoryID from categories where budgetID in (select budgetID from budget where planID = (select planID from accountsettings where userID = %d)))", $_SESSION["username"]);
     
     $result3 = $connection->query($sql3) or die(mysqli_error($connection));
     while ($row3 = $result3->fetch_assoc())
     {
        $defaultPlanBudget = $row3["amountTotal"];
+    
+    	
     }
     $sql4 = sprintf("select format(sum(budgetLimit),2) as planLimit from budget where planID = (select planID from accountsettings where userID = %d)", $_SESSION["username"]);
     
@@ -57,7 +58,18 @@
   		</script>
 	</head>
 	<body class="subpage">
-		<?php setHeader(); ?>
+		<header id="header">
+	      <div class="inner">
+	        <a href="home.php" class="logo"><strong>Wyze</strong></a>
+	        <nav id="nav">
+	          <a href="home.php">Home</a>
+	          <a href="transactions.php">Transactions</a>
+	          <a href="budget.php">Budget</a>
+	          <a href="account.php">My Account</a>
+	        </nav>
+	        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+	      </div>
+		</header>
 		<section id="main" class="wrapper">
 			<div class="inner">
 				<header class="align-center">
