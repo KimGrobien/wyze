@@ -20,7 +20,7 @@
        $transactions[] = $row2["total"];
     }
     //add all budgets out of PlanLimit
-    $sql3 = sprintf("select format(sum(amount),2) as amountTotal from transactions where categoryID in (select categoryID from categories where budgetID in (select budgetID from budget where planID = (select planID from accountsettings where userID = %d)))", $_SESSION["username"]);
+    $sql3 = sprintf("select format(sum(amount),2) as amountTotal from transactions where categoryID in (select categoryID from categories where budgetID in (select budgetID from budget where planID = (select planID from accountsettings where userID = %d))) order by categoryID", $_SESSION["username"]);
     
     $result3 = $connection->query($sql3) or die(mysqli_error($connection));
     while ($row3 = $result3->fetch_assoc())
