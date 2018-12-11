@@ -81,56 +81,23 @@
         $planID = getPlanID();
         $result = getBudgetID($planID);
 
-
-        while($row = $result->fetch_assoc()){
-            foreach($row as $key => $value){
-              //  echo $value . "\n";
-                
+          while($row = $result->fetch_assoc()){
+            foreach($row as $value){
                 $sql = sprintf("SELECT categoryID FROM categories WHERE budgetID = '%s'",
                     $con->real_escape_string($value)
-                ); 
+                );
                 
                 $res = $con->query($sql) or die(mysqli_error($con));
-                
                 $i = 0;
                 while($r = $res->fetch_assoc()){
                     foreach($r as $k => $v){
-                       // echo $v . "\n";
-                    
-                       $idArr[$i] = $v; 
-                       
-                     //  echo $v . "\n";
-                      // echo $idArr[$i] . "\n";
+                       $idArr[$i] = $v;
                        $i += 1;
                     }
                 }
-                //$resArr[$i] = $res;
             }
-        }
-        
+          }
         return $idArr;
-        
-        //return $res;
-        /*foreach($row as $val){
-            //cycle through the rows of budget IDs and get the category IDs
-                $sql = sprintf("SELECT categoryID FROM categories WHERE budgetID = '%s'",
-                    $con->real_escape_string($val)
-                ); 
-                
-                $result = $con->query($sql) or die(mysqli_error($con));
-                
-                $row = $result->fetch_assoc();
-                $value = $row['categoryID'];
-                
-                $catIDarr[$i] = $value;
-                $i += 1;*/
-        
-        
-        //return $catIDarr;
-    }
-    
-    function getBugetLimits(){
-        
     }
     
     function getPlanLimit(){
@@ -157,6 +124,7 @@
         $catIDs = getCategories();
         $userID = $_SESSION["username"];
         
+       // echo count($catIDs) . "\n";
         for($i = 0; $i <= count($catIDs); $i++){
             $sql = sprintf("SELECT categoryName as cName, aSum FROM categories as c RIGHT JOIN (SELECT categoryID, FORMAT(SUM(amount), 2) as aSum FROM transactions WHERE categoryID = '%s' AND userID='%s') as a ON c.categoryID = a.categoryID",
                 $con->real_escape_string($catIDs[$i]),
@@ -173,8 +141,6 @@
     
     function getTotal(){
        $aArr = getTransactionTotals();
-        
-        //echo count($aArr);
         for($i = 0; $i < count($aArr); $i++){
             
             while($row = $aArr[$i]->fetch_assoc()){
@@ -192,7 +158,12 @@
         $con = connect_to_db();
         $catIDs = getCategories();
         $userID = $_SESSION["username"];
-       // echo count($catIDs);
+        
+        /*while($r = $res->fetch_assoc()){
+            foreach($r as $k => $v){
+                echo $v;
+            }
+        }*/
         
         for($i = 0; $i <= count($catIDs); $i++){
             $sql = sprintf("SELECT cName, aSum, budgetLimit
@@ -213,17 +184,18 @@
         }
         
         $i = 0;
-        //echo count($budgetsArr);
-       /* while($row = $budgetsArr[$i]->fetch_assoc()){
+        
+       /* for($i = 0; $i < count($budgetsArr); $i++){
+        while($row = $budgetsArr[$i]->fetch_assoc()){
             
             //$value = $row['budgetLimit'];
-            echo $value . "\n";
+           // echo $value . "\n";
             
             foreach($row as $key => $value){
-                echo $value . "\n";
+               // echo $value . "\n";
             }
+        }
         }*/
-        
         
         return $budgetsArr;
     }

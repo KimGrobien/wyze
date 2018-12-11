@@ -1,9 +1,11 @@
 <?php
     require_once("db_con.php");
     require_once("getBudgetData.php");
+    session_start();
     
     function deleteCategory($entry_name){
         $con = connect_to_db();
+        
         
         $sql = sprintf("DELETE FROM categories WHERE categoryName='%s';",
                 $con->real_escape_string($entry_name));
@@ -41,10 +43,12 @@
     
     
     function addCategory($table, $cat_name, $con){
-       
-        $sql = sprintf("INSERT INTO %s (categoryName) VALUES ('%s')", 
+        
+        $userID = $_SESSION['username'];
+        $sql = sprintf("INSERT INTO %s (categoryName, userID) VALUES ('%s', '%s')", 
             $con->real_escape_string($table),
-            $con->real_escape_string($cat_name)
+            $con->real_escape_string($cat_name),
+            $con->real_escape_string($userID)
             );
         
         if($con->query($sql) === TRUE){

@@ -8,9 +8,8 @@
 	require_once("insertValuesTest.php");
 	require_once("showBudgetHTML.php");
 	require_once("dataAlterations.php");
+	require_once("header.php");
 	session_start();
-	
-	$uID = $_SESSION['username'];
 	
 	if(isset($_POST['catSubmit'])){
 		$message = addValues($_POST['newCatName'], $_POST['catSubmit']);
@@ -65,37 +64,35 @@
 		<link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
 		<link rel="stylesheet" href="assets/css/budget.css"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-
+		
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+		
+		<script src="jquery-popup-overlay-gh-pages/bower.json"></script>
+		<script src="jquery-popup-overlay-gh-pages/package.json"></script>
+		<script src="jquery-popup-overlay-gh-pages/index.js"></script>
+		<script src="jquery-popup-overlay-gh-pages/jquery.popupoverlay.js"></script>
+		
 	</head>
 	<body class="subpage">
 
 		<!-- Header -->
-			<header id="header">
-			    <div class="inner">
-                    <a href="home.php" class="logo"><strong>WYZE</strong></a>
-                    <nav id="nav">
-                        <a href="home.php">Home</a>
-                        <a href="transactions.php">Transactions</a>
-                        <a href="budget.php">Budget</a>
-                        <a href="account.php">My Account</a>
-                    </nav>
-                    <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-                </div>
-			</header>
+			<?php setHeader();?>
 
 		<!-- Main -->
 			<section id="main" class="wrapper">
 				<div class="inner">
 					<header class="align-center">
 						<h2>Default Plan</h2>
-						<!--<p>Aliquam erat volutpat nam dui </p> -->
 					        <ul class="actions">
 					        	<li><button class="category_open">Add Category</button>
 						    		<div id="category">
 						    			<head>
 											<link rel="stylesheet" href="assets/css/main.css" />
 											<link rel="stylesheet" href="assets/css/popupWindow.css" />
-									    </head>
+									   	</head>
 								        <header id="header">
 										    <div class="inner">
 								                <a href="home.php" class="logo"><strong>WYZE</strong></a>
@@ -140,13 +137,10 @@
 														<?php echo categoryDropdown(1); ?>
 													</div>
 												</div>
-											
-												<footer class="align-center">
+													<footer class="align-center">
 													<input type="submit" id="delete" name="delete_cat" onclick="return errorCheck(this);" value="Delete Category">
-													
-													<input type="submit" id="open_change_name" name="open_change_name" class="change_name_open" value="Change Category Name">
-														
 											</form>
+													<input type="submit" id="open_change_name" name="open_change_name" class="change_name_open" value="Change Category Name">
 														<div id="change_name">
 											    			<head>
 																<link rel="stylesheet" href="assets/css/main.css" />
@@ -174,8 +168,6 @@
 																	</form>
 															</section>
 												  		</div>
-												<!--<input type="submit" class="chng_name" value="Change Category Name">-->
-											<!--	<input type="submit" class="edit_close" value="Edit Subcategory"> -->
 												<button name="close" id="close_edit_cat" class="edit_close">Close</button>
 											</footer>
 										</section>
@@ -269,99 +261,66 @@
 				</div>
 			</section>
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			
-			<script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
-			<script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
-			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-			
-			<script>
-    			$(document).ready(function() {
-			      // Initialize the plugin
-			      $('#plan').popup({
-			      });
-			    });
-			    
-			    $(document).ready(function() {
-			      // Initialize the plugin
-			      $('#budget').popup({
-			      });
-			    });
-			    
-			    $(document).ready(function() {
-			      // Initialize the plugin
-			      $('#category').popup({
-			      });
-			    });
-			    
-			    $(document).ready(function() {
-			      // Initialize the plugin
-			      $('#subcategory').popup({
-			      });
-			    });
-			    
-			    $(document).ready(function() {
-			      // Initialize the plugin
-			      $('#edit').popup({
-			      });
-			    });
-			    
-			    $(document).ready(function() {
-			      // Initialize the plugin
-			      $('#change_name').popup({
-			      });
-			    });
-			    
-			   
-  			</script>
+		<script>
+			$(document).ready(function() {
+		      // Initialize the plugin
+		      $('#plan').popup({
+		      });
+		    });
+		    
+		    $(document).ready(function() {
+		      // Initialize the plugin
+		      $('#budget').popup({
+		      });
+		    });
+		    
+		    $(document).ready(function() {
+		      // Initialize the plugin
+		      $('#category').popup({
+		      });
+		    });
+		    
+		    $(document).ready(function() {
+		      // Initialize the plugin
+		      $('#edit').popup({
+		      });
+		    });
+		    
+		    $(document).ready(function() {
+		      // Initialize the plugin
+		      $('#change_name').popup({
+		      });
+		    });
+  		</script>
   			
-  			<script type="text/javascript">
-  				
-  			/*	$('#open_change_name').click(function(){
-  					if(document.getElementById("drop").value == "Select"){
-  						alert("You must first select a category!");
-				        return false;
-  					}
-  					else{
-  							$('#close_edit_cat').click();
-  						//document.getElementById("dropdown").submit();	
-  						
-  					}
-  				});*/
-
-  			</script>
-  			
-  			<script>
-  				function errorCheck(elem){
-				    if(document.getElementById("newCatName").value == "" && elem.id == 'add'){
-				        alert("Complete all inputs or press cancel!");
-				        return false;
-				    }
-				    else if(document.getElementById("drop1").value == "Select1" && elem.id == 'delete'){
-				        alert("You must first select a category!");
-				        return false;
-				    }
-				    else if(document.getElementById("editCatName").value == "" && elem.id == 'changeName'){
-				    	alert("Complete all inputs or press cancel!");
-				        return false;
-				    }
-					else if(document.getElementById("planName").value == "" && elem.id == 'addPlan'){
-				    	alert("Complete all inputs or press cancel!");
-				        return false;
-				    }
-				    else if((document.getElementById("addLimit").value == "" || 
-				    		document.getElementById("drop2").value == "Select") &&
-				    		elem.id == 'addBudget'){
-				    	alert("Complete all inputs or press cancel!");
-				    	return false;
-				    }
-				    else{
-				    	return true;
-  					}
+  		<script>
+  			function errorCheck(elem){
+			    if(document.getElementById("newCatName").value == "" && elem.id == 'add'){
+			        alert("Complete all inputs or press cancel!");
+			        return false;
+			    }
+			    else if(document.getElementById("drop1").value == "Select1" && elem.id == 'delete'){
+			        alert("You must first select a category!");
+			        return false;
+			    }
+			    else if(document.getElementById("editCatName").value == "" && elem.id == 'changeName'){
+			    	alert("Complete all inputs or press cancel!");
+			        return false;
+			    }
+				else if(document.getElementById("planName").value == "" && elem.id == 'addPlan'){
+			    	alert("Complete all inputs or press cancel!");
+			        return false;
+			    }
+			    else if((document.getElementById("addLimit").value == "" || 
+			    		document.getElementById("drop2").value == "Select") &&
+			    		elem.id == 'addBudget'){
+			    	alert("Complete all inputs or press cancel!");
+			    	return false;
+			    }
+			    else{
+			    	return true;
   				}
-  			</script>
+  			}
+  		</script>
 	</body>
 </html>
